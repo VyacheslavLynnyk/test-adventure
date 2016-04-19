@@ -1,4 +1,0 @@
-#create file .htaccess and write:
-
-RewriteEngine on
-RewriteRule home.php webroot/newhome.php
