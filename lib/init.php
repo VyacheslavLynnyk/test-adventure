@@ -12,10 +12,9 @@ function mvc_autoload($class_name)
     } elseif (file_exists($controller_path)) {
         require_once $controller_path;
     } elseif (file_exists($models_path)) {
-        var_dump('models');
         require_once $models_path;
     } else {
-        Throw NEW Exception('Error!!!!!. Page ' . $class_name . ' not found!');
+        Throw NEW Exception('Error! Page ' . $class_name . ' not found!');
     }
 }
 

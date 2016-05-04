@@ -14,7 +14,7 @@ Config::set('default_route', 'default');
 
 Config::set('default_language', 'ru');
 
-Config::set('default_controller', 'pages');
+Config::set('default_controller', 'home');
 
 Config::set('default_action', 'index');
 
@@ -22,7 +22,7 @@ Config::set('default_action', 'index');
 ActiveRecord\Config::initialize(function ($cfg) {
     $cfg->set_model_directory(ROOT.DS.'models');
     $cfg->set_connections([
-        'development' => 'mysql://user:ASDqwe12U@localhost/diplom'
+        'development' => 'mysql://user:ASDqwe12U@localhost/test_adventure'
     ]);
     $cfg->set_default_connection('development');
 
