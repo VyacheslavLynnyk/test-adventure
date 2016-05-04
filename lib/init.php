@@ -1,20 +1,26 @@
 <?php
 
-require_once(ROOT.DS.'configs'.DS.'config.php');
-
-function __autoload($class_name)
+function mvc_autoload($class_name)
 {
-    $lib_path = ROOT . DS . 'lib' . DS . strtolower($class_name) . '.class.php';
-    $controller_path = ROOT . DS . 'controllers' . DS . str_replace('controller', '', strtolower($class_name)) . '.controller.php';
-    $models_path = ROOT . DS . 'models' . DS . strtolower($class_name) . 'class.php';
+    $class_name = strtolower($class_name);
+    $lib_path = ROOT . DS . 'lib' . DS . $class_name . '.class.php';
+    $controller_path = ROOT . DS . 'controllers' . DS . str_replace('controller', '', $class_name) . '.controller.php';
+    $models_path = ROOT . DS . 'models' . DS . $class_name . '.model.php';
 
     if (file_exists($lib_path)) {
         require_once $lib_path;
     } elseif (file_exists($controller_path)) {
         require_once $controller_path;
     } elseif (file_exists($models_path)) {
+        var_dump('models');
         require_once $models_path;
     } else {
-        Throw NEW Exception('Error. Page ' . $class_name . ' not found!');
+        Throw NEW Exception('Error!!!!!. Page ' . $class_name . ' not found!');
     }
 }
+
+spl_autoload_register('mvc_autoload');
+
+require_once ROOT . DS . 'vendor' . DS . 'autoload.php';
+
+require_once(ROOT.DS.'configs'.DS.'config.php');
