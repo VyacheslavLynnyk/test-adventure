@@ -4,6 +4,11 @@
         <div class="col-md-3" id="tests-menu">
             <?php include VIEW_PATH . DS . 'test-panel.html' ?>
         </div>
+
+        <div var_dump>
+            <?= isset($this->data['var_dump']) ? $this->data['var_dump'] : '' ?>
+        </div>
+
         <div class="col-md-7">
             <form action="<?= REL_URL . '/admin/manager/save-test' ?>" method="POST">
                 <p>Choose test language:
@@ -17,7 +22,8 @@
                 </p>
                 <p>Write test name <input type="text" name="test_name"></p>
                 <div>
-                    <input type="submit" class="btn btn-info btn-lg pull-left" name="save_tests">Create</input>
+                    <input type="text" hidden name="save_test" value="save">
+                    <input type="submit" class="btn btn-info btn-lg pull-left">Create</input>
                 </div>
             </form>
         </div>

@@ -1,7 +1,7 @@
 .alert-window {
     position: absolute;
     left: calc(45% - 150px);
-
+    z-index: 1;
     background: rgba(255, 180, 180, 0.6);
     color: red;
 

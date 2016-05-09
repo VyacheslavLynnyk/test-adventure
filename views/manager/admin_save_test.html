@@ -4,34 +4,48 @@
         <div class="col-md-3" id="tests-menu">
             <?php include VIEW_PATH . DS . 'test-panel.html' ?>
         </div>
+
+        <div var_dump>
+            <?= isset($this->data['var_dump']) ? $this->data['var_dump'] : '' ?>
+        </div>
+
         <div class="col-md-7">
             <form action="<?= REL_URL . '/admin/manager/save-test' ?>" method="POST">
                 <div class="form-group">
-                    <label for="InputQuestion">Введите задание или вопрос:</label>
+                    <label for="InputQuestion">Введите вопрос:</label>
                     <textarea class="form-control" id="InputQuestion" name="question"></textarea>
                 </div>
                 <div class="form-group">
-                    <img class="container-fluid" src="asd" alt="">
                     <label for="InputFile">Загрузка картинки:</label>
                     <input type="file" id="InputFile">
                 </div>
-                <h3>Правильный ответ(ы):</h3>
+                <h3>Ответы:</h3>
                 <div id="answer-list">
                     <div class="form-group row">
-                        <div class="col-sm-2">
-                            <input type="checkbox" name="answer[]">
+                        <div class="col-sm-1">
+                            <input type="checkbox" name="answer_true[]">
                         </div>
-                        <div class="col-sm-10">
-                            <textarea  class="form-control" name="question"></textarea>
+                        <div class="col-sm-11">
+                            <textarea  class="form-control" name="answer[]"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-1">
+                            <input type="checkbox" name="answer_true[]">
+                        </div>
+                        <div class="col-sm-11">
+                            <textarea  class="form-control" name="answer[]"></textarea>
                         </div>
                     </div>
                 </div>
-                <div class="form-group text-center">
+                <div id="answer-controll" class="form-group text-center">
                     <input type="button" class="btn btn-success" id="add-answer" value="+ Add answer">
-                    <input type="button" class="btn btn-success" id="remove-answer" value="- Remove answer">
+                    <input type="button" class="btn btn-danger" id="remove-answer" value="- Remove answer">
                 </div>
                 <div>
-                    <input type="submit" class="btn btn-info btn-lg pull-left" name="save_question">Save question</input>
+                    <input type="text" hidden name="save_test" value="save_question">
+                    <input type="submit" class="btn btn-info btn-lg pull-right"  value="Save question">
                 </div>
             </form>
         </div>
