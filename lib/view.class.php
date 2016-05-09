@@ -21,7 +21,6 @@ class View
         if (!$path) {
             $path = self::getDefaultViewPath();
         }
-        var_dump(file_exists($path));
         if (!file_exists($path)) {
             throw new Exception('Template not found in path ' . $path);
         }

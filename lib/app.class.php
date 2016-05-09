@@ -28,7 +28,7 @@ class App
         }
 
         // Select layout
-        $layout = Config::get('routes')[self::$router->getRoute()] . "default";
+        $layout = Config::get('routes')[self::$router->getRoute()] . "default"; // !!
         $layout_path = VIEW_PATH.DS.$layout.'.html';
         $layout_view_obj = new View(compact('content'), $layout_path);
         echo $layout_view_obj->render();

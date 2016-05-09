@@ -66,6 +66,11 @@ class Router
         }
 
     }
+
+    public function redirect($location)
+    {
+        header("Location: " . REL_URL . '/' . $location);
+    }
     /**
      * @return mixed
      */

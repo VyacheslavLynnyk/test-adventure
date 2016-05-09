@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
           integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
     <link rel="stylesheet" href="<?=REL_URL?>/css/main.css">
+    <link rel="stylesheet" href="<?=REL_URL?>/css/adds-css.css">
 
 </head>
 <body>
@@ -20,8 +21,14 @@
             </nav>
         </div>
     </div>
+    
+    <?php if (Session::hasFlash() !== false) : ?>
+        <div class="alert-window">
+            <h1><?php Session::flash() ?></h1>
+        </div>
+    <?php endif ?>
 
-        <?=$data['content']?>
+    <?=$data['content']?>
 
 <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
     <script src="<?=REL_URL?>/js/jquery.min.js"></script>
