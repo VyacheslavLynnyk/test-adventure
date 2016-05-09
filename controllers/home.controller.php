@@ -17,4 +17,11 @@ class HomeController extends Controller
             $this->data['content'] = 'Content';
         }
     }
+
+    public function admin_index()
+    {
+        
+    }
+
+    
 }

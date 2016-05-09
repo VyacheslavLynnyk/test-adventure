@@ -1,0 +1,26 @@
+<div class="container">
+    <h1 class="text-center">Test Manager</h1>
+    <div class="row">
+        <div class="col-md-3" id="tests-menu">
+            <?php include VIEW_PATH . DS . 'test-panel.html' ?>
+        </div>
+        <div class="col-md-7">
+            <form action="<?= REL_URL . '/admin/manager/save-test' ?>" method="POST">
+                <p>Choose test language:
+                    <select name="set_language">
+                        <option value="">--- not set --- </option>
+                        <?php foreach ($data['languages'] as $languages) : ?>
+                            <option value="<?= $languages->language ?>"> <?= $languages->language ?> </option>
+                        <?php endforeach ?>
+                    </select>
+                    or add new <input type="text" name="add_language">
+                </p>
+                <p>Write test name <input type="text" name="test_name"></p>
+                <div>
+                    <input type="submit" class="btn btn-info btn-lg pull-left" name="save_tests">Create</input>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

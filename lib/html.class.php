@@ -3,7 +3,12 @@ class Html
 {
     public static function a_is_active($link, $link_name, $classes_array = [])
     {
-        if (App::getRouter()->getController() == trim(strtolower($link), '/')) {
+        //Get relative link
+        $link = trim(strtolower($link), '/');
+        // Get last link name
+        $menu_name = (explode('/', $link));
+        $menu_name = (sizeof($menu_name) > 0) ? array_pop($menu_name) : $link;
+        if (App::getRouter()->getController() == $menu_name) {
             $classes_array[] = 'active';
         }
         $classes = (isset($classes_array)) ? 'class="'.implode(' ', $classes_array).'"' : '';
