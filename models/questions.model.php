@@ -1,5 +1,5 @@
 <?php
-class Question extends Model
+class Questions extends Model
 {
     
 }

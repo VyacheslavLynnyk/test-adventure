@@ -13,7 +13,7 @@ class View
         }
         $controller_dir = $router->getController();
         $template_name = $router->getMethodPrefix().$router->getAction() . '.html';
-        return VIEW_PATH.DS.$controller_dir.DS.$template_name;
+        return $controller_dir.DS.$template_name;
     }
 
     public function __construct($data = [], $path = null)
@@ -21,6 +21,9 @@ class View
         if (!$path) {
             $path = self::getDefaultViewPath();
         }
+        
+        $path = VIEW_PATH.DS.$path;
+
         if (!file_exists($path)) {
             throw new Exception('Template not found in path ' . $path);
         }

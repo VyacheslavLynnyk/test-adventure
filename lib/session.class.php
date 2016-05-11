@@ -18,5 +18,14 @@ class Session
     {
         return isset(self::$flash_message);
     }
-    
+
+    public static function saveData($name, $data)
+    {
+        $_SESSION['saved_data'][$name] = $data;
+    }
+
+    public static function getData($name)
+    {
+        return $_SESSION['saved_data'][$name];
+    }
 }

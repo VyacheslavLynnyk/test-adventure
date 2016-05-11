@@ -13,14 +13,15 @@
             <form action="<?= REL_URL . '/admin/manager/save-test' ?>" method="POST">
                 <p>Choose test language:
                     <select name="set_language">
-                        <option value="">--- not set --- </option>
+                        <option value="" selected>--- not set --- </option>
                         <?php foreach ($data['languages'] as $languages) : ?>
-                            <option value="<?= $languages->language ?>"> <?= $languages->language ?> </option>
+                            <option value="<?= $languages->id ?>"> <?= $languages->language ?> </option>
                         <?php endforeach ?>
                     </select>
+<!--                  // TODO  make checkbox which switchs between select and input boxes-->
                     or add new <input type="text" name="add_language">
                 </p>
-                <p>Write test name <input type="text" name="test_name"></p>
+                <p>Write test name <input type="text" name="test_name" required = "required"></p>
                 <div>
                     <input type="text" hidden name="save_test" value="save">
                     <input type="submit" class="btn btn-info btn-lg pull-left">Create</input>

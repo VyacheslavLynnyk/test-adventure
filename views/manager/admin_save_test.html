@@ -6,7 +6,7 @@
         </div>
 
         <div var_dump>
-            <?= isset($this->data['var_dump']) ? $this->data['var_dump'] : '' ?>
+            <?php print_r($_POST);?>
         </div>
 
         <div class="col-md-7">
@@ -23,7 +23,7 @@
                 <div id="answer-list">
                     <div class="form-group row">
                         <div class="col-sm-1">
-                            <input type="checkbox" name="answer_true[]">
+                            <input type="checkbox" name="answer_true[]" value="0">
                         </div>
                         <div class="col-sm-11">
                             <textarea  class="form-control" name="answer[]"></textarea>
@@ -32,7 +32,7 @@
 
                     <div class="form-group row">
                         <div class="col-sm-1">
-                            <input type="checkbox" name="answer_true[]">
+                            <input type="checkbox" name="answer_true[]" value="1">
                         </div>
                         <div class="col-sm-11">
                             <textarea  class="form-control" name="answer[]"></textarea>
