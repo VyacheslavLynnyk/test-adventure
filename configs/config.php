@@ -22,7 +22,7 @@ Config::set('default_action', 'index');
 ActiveRecord\Config::initialize(function ($cfg) {
     $cfg->set_model_directory(ROOT.DS.'models');
     $cfg->set_connections([
-        'development' => 'mysql://user:ASDqwe12U@localhost/test_adventure'
+        'development' => 'mysql://user:ASDqwe12U@localhost/test_adventure;charset=utf8'
     ]);
     $cfg->set_default_connection('development');
 

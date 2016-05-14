@@ -75,16 +75,24 @@ class ManagerController extends Controller
 //                $this->data['var_dump'] .= '$_POST[answer_true][2] = '. $_POST['answer_true'][2] . '<br>';
 //                $this->data['var_dump'] .= '$_POST[answer_true][3] = '. $_POST['answer_true'][3] . '<br>';
 
-//                $questionModel = new Questions();
-//                $questionModel->question = htmlspecialchars_decode(trim($_POST['question']));
-//                $questionModel->test_id = Session::getData('test_id');
-//                $questionModel->save();
-//
-//                $answerModel = new Answers();
-//                foreach ( $_POST['answer'] as $key=>$answer) {
-//                    $answerModel->answer = htmlspecialchars_decode(trim($answer));
-//                    $answerModel->is_true = ()
-//                }
+                $questionModel = new Questions();
+                $questionModel->question = htmlspecialchars_decode(trim($_POST['question']));
+                $questionModel->test_id = Session::getData('test_id');
+                $questionModel->save();
+
+                $answer_true = (array) $_POST['answer_true'];
+                foreach ( $_POST['answer'] as $key => $answer) {
+                    $answerModel = new Answers();
+                    $answerModel->answer = htmlspecialchars_decode(trim($answer));
+                    $answerModel->is_true = (in_array($key, $answer_true)) ? $key : null;
+                    $answerModel->question_id = $questionModel->id;
+                    if ($answerModel->save() == false) {
+                        Session::setFlash('Ошибка при создании теста!');
+                    } else {
+                        Session::setFlash('Вопрос сохранен!');
+                    }
+                    //Router::redirect('admin/manager/index');
+                }
 
             }
         } else {

@@ -27,9 +27,7 @@
         <data-type>mediumint(8) unsigned</data-type>
       </column>
       <column id="10" parent="2" name="is_true">
-        <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
-        <default-expression>&apos;0&apos;</default-expression>
       </column>
       <index id="11" parent="2" name="answers_ibfk_1">
         <columns>question_id</columns>
