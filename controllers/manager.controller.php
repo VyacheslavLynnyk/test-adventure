@@ -19,18 +19,10 @@ class ManagerController extends Controller
         if (isset($_POST['save_test']) && $_POST['save_test'] == 'save') {
             if (($_POST['set_language'] != null || $_POST['add_language'] != null) && $_POST['test_name'] != null) {
 
-                // TEST var_dump
-                $this->data['var_dump'] = ((bool) $_POST['set_language'] != null) .'('.$_POST['set_language'] . ')|';
-                $this->data['var_dump'] .= ((bool) $_POST['add_language'] != null) .'('.$_POST['add_language'] . ')|' ;
-                $this->data['var_dump'] .= ((bool) $_POST['test_name'] != null).'('.$_POST['test_name'] . ')<br>';
-
                 if ($_POST['add_language'] != null) {
                     // Save into Languages
                     $languageModel = new Languages();
                     $languageModel->language = htmlspecialchars_decode(trim($_POST['add_language']));
-
-                    //TEST var_dump
-                    $this->data['var_dump'] .= '$languageModel->language = '. $languageModel->language . '<br>';
 
                     if ($languageModel->save() == false) {
                         Session::setFlash('Ошибка при создании теста!');
@@ -40,14 +32,7 @@ class ManagerController extends Controller
                 // Save into Tests
                 $testModel = new Tests();
                 $testModel->test = htmlspecialchars_decode(trim($_POST['test_name']));
-
-                //TEST var_dump
-                $this->data['var_dump'] .= '$testModel->test = '. $testModel->test . '<br>';
-
                 $testModel->language_id = isset($languageModel->id) ? $languageModel->id : (int)$_POST['set_language'];
-
-                //TEST var_dump
-                $this->data['var_dump'] .= '$testModel->language_id = '. $testModel->language_id . '<br>';
 
                 if ($testModel->save() == false) {
                     Session::setFlash('Ошибка при создании теста!');
@@ -56,48 +41,110 @@ class ManagerController extends Controller
 
                     $this->data['languages'] = Languages::find('all');
                     $this->data['tests'] = Tests::find('all');
-
                     Session::saveData('test_id', $testModel->id);
                 }
-
             } else {
                 Session::setFlash('Fill up all needed fields');
                 Router::redirect('admin/manager/index');
             }
 
         } elseif (isset($_POST['save_test']) && $_POST['save_test'] =='save_question') {
+
+            // Save question and answer
             if ($_POST['question'] != null && $_POST['answer'][0] != null && (Session::getData('test_id') != null)) {
+                $test_id = Session::getData('test_id');
+                $question = htmlspecialchars_decode(trim($_POST['question']));
+                $answers_true = (array) $_POST['answer_true'];
+                $answers = (array) $_POST['answer'];
 
-
-                //TEST var_dump
-                $this->data['var_dump'] = $_POST['answer_true'];
-//                $this->data['var_dump'] .= '$_POST[answer_true][1] = '. $_POST['answer_true'][1] . '<br>';
-//                $this->data['var_dump'] .= '$_POST[answer_true][2] = '. $_POST['answer_true'][2] . '<br>';
-//                $this->data['var_dump'] .= '$_POST[answer_true][3] = '. $_POST['answer_true'][3] . '<br>';
-
-                $questionModel = new Questions();
-                $questionModel->question = htmlspecialchars_decode(trim($_POST['question']));
-                $questionModel->test_id = Session::getData('test_id');
-                $questionModel->save();
-
-                $answer_true = (array) $_POST['answer_true'];
-                foreach ( $_POST['answer'] as $key => $answer) {
-                    $answerModel = new Answers();
-                    $answerModel->answer = htmlspecialchars_decode(trim($answer));
-                    $answerModel->is_true = (in_array($key, $answer_true)) ? $key : null;
-                    $answerModel->question_id = $questionModel->id;
-                    if ($answerModel->save() == false) {
-                        Session::setFlash('Ошибка при создании теста!');
-                    } else {
-                        Session::setFlash('Вопрос сохранен!');
-                    }
-                    //Router::redirect('admin/manager/index');
-                }
-
+                $this->app_save_test($test_id, $answers, $answers_true, $question);
             }
         } else {
             Session::setFlash('Fill up all needed fields');
             Router::redirect('admin/manager/index');
         }
+    }
+
+    public function admin_edit_test()
+    {
+        $params = App::getRouter()->getParams();
+        if (sizeof($params) > 0) {
+            $this->data['params'] = implode('/', $params);
+
+            $testModel = Tests::find_by_id($params[0]);
+
+            if (isset($_POST['test_name']) && $_POST['test_name'] != null) {
+                $testModel->test = htmlspecialchars_decode(trim($_POST['test_name']));
+                $testModel->save();
+            }
+            $this->data['test_name'] = $testModel->test;
+            // Get all questions
+            if (!isset($params[1])) {
+                $this->data['questions'] = Questions::find_all_by_test_id($testModel->id);
+            }
+            if (isset($params[1]) && (int) $params[1] !== null) {
+                if (isset($_POST['question']) && $_POST['question'] != null && $_POST['answer'][0] != null) {
+                    $test_id = $params[0];
+                    $question = htmlspecialchars_decode(trim($_POST['question']));
+                    $question_id = $params[1];
+                    $answers_true = (array) $_POST['answer_true'];
+                    $answers = (array) $_POST['answer'];
+
+                    $this->app_save_test($test_id, $answers, $answers_true, $question, $question_id);
+                }
+
+                $this->data['current_question'] = Questions::find_by_id($params[1]);
+                $this->data['answers'] = Answers::find_all_by_question_id($params[1]);
+            }
+        }
+
+        $this->data['languages'] = Languages::find('all');
+        $this->data['tests'] = Tests::find('all');
+    }
+
+
+    /**
+     * @param $test_id
+     * @param $answers
+     * @param $answers_true
+     * @param $question
+     * @param null $question_id
+     * @return bool
+     */
+    protected function app_save_test($test_id, $answers, $answers_true, $question, $question_id = null)
+    {
+        if ($question_id != null) {
+            $questionModel = Questions::find_by_id($question_id);
+            //remove old answers
+            $answerModelArr = Answers::find_all_by_question_id($question_id);
+            foreach ($answerModelArr as $answerModel) {
+                $answerModel->delete();
+            }
+        } else {
+            $questionModel = new Questions();
+        }
+
+        $questionModel->question = $question;
+        $questionModel->test_id = $test_id;
+        $questionModel->save();
+
+        foreach ( $answers as $key => $answer) {
+            if ($answer == null) {
+                continue;
+            }
+            $answerModel = new Answers();
+            $answerModel->answer = htmlspecialchars_decode(trim($answer));
+            $answerModel->is_true = (in_array($key, $answers_true)) ? $key : null;
+            $answerModel->question_id = $questionModel->id;
+            $answerModel->save();
+        }
+    }
+
+    public function admin_edit_language()
+    {
+        $this->data['languages'] = Languages::find('all');
+        $this->data['tests'] = Tests::find('all');
+
+        $params = App::getRouter()->getParams();
     }
 }

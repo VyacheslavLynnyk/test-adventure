@@ -7,6 +7,7 @@
           integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
           integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    <link rel="stylesheet" href="<?=REL_URL?>/css/normalize.css">
     <link rel="stylesheet" href="<?=REL_URL?>/css/main.css">
     <link rel="stylesheet" href="<?=REL_URL?>/css/adds-css.css">
 
@@ -22,9 +23,9 @@
         </div>
     </div>
     
-    <?php if (Session::hasFlash() !== false) : ?>
+    <?php if (Session::getData('alert') != null) : ?>
         <div class="alert-window">
-            <h1><?php Session::flash() ?></h1>
+            <h1><?php echo Session::getData('alert') ?></h1>
         </div>
     <?php endif ?>
 

@@ -4,10 +4,11 @@ $(function() {
     /* Answer add */
     var numAnswer = 1;
     $( "#add-answer" ).click(function() {
+        var checkbox = $("#answer-list div.form-group:last-child input[name='answer_true[]']");
         var newInput = '';
         newInput += '<div class="form-group row">'
         newInput += '<div class="col-sm-1">';
-        newInput += '<input type="checkbox" name="answer_true[]" value="'+ ++numAnswer +'">';
+        newInput += '<input type="checkbox" name="answer_true[]" value="'+ (+checkbox.val() + 1) +'">';
         newInput += '</div>';
         newInput += '<div class="col-sm-11">';
         newInput += '<textarea  class="form-control" name="answer[]"></textarea>';

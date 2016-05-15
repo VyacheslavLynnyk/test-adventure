@@ -26,6 +26,10 @@ class Session
 
     public static function getData($name)
     {
-        return $_SESSION['saved_data'][$name];
+        if (isset($_SESSION['saved_data'][$name])) {
+            return $_SESSION['saved_data'][$name];
+        } else {
+            return false;
+        }
     }
 }
