@@ -1,5 +1,5 @@
 $(function() {
-    $( "#tests-menu" ).accordion();
+    // $( "#tests-menu" ).accordion();
 
     /* Answer add */
     var numAnswer = 1;

@@ -1,14 +1,38 @@
-<?php foreach ($data['languages'] as $languages) : ?>
-    <h3><?= $languages->language ?></h3>
-    <div>
+
+<div id="languages1">
+
+
+    <?php $coma = null; ?>
+    <?php foreach ($data['languages'] as $languages) : ?>
+        <?php if (isset($coma))  echo ','; else $coma = true; ?>
+        {
+        text: "<?= $languages->language ?>"
         <?php foreach ($data['tests'] as $tests) : ?>
+
             <?php if ($tests->language_id == $languages->id ) : ?>
-                <p>
-                    <a href="<?= REL_URL.'/admin/manager/edit-test/'. $tests->id ?>">
-                        <?= $tests->test ?>
-                    </a>
-                </p>
+                <?php if (!isset($coma))  echo ','; else $coma = true; ?>
+                , nodes:
+                [
+                {
+                text: '<?= htmlspecialchars($tests->test) ?>',
+                href: "<?= REL_URL . '/admin/manager/edit-test/' . $tests->id ?>"
+                }
+                ]
             <?php endif ?>
         <?php endforeach ?>
-    </div>
-<?php endforeach ?>
+        }
+    <?php endforeach ?>
+
+
+<script>
+    var testsTree = [ <?= $data_tree ?> ];
+
+    function getTree() {
+    // Some logic to retrieve, or generate tree structure
+        return data;
+    }
+
+$('#treeview').treeview({data: getTree(testsTree)});
+</script>
+</div>
+<div id="treeview" /></div>

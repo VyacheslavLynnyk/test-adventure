@@ -8,6 +8,8 @@ class Controller
 
     protected $params;
 
+    protected $view_path;
+
     /**
      * @return mixed
      */

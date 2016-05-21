@@ -12,7 +12,7 @@ class View
             return false;
         }
         $controller_dir = $router->getController();
-        $template_name = $router->getMethodPrefix().$router->getAction() . '.html';
+        $template_name = $router->getMethodPrefix().$router->getAction();
         return $controller_dir.DS.$template_name;
     }
 
@@ -22,10 +22,10 @@ class View
             $path = self::getDefaultViewPath();
         }
         
-        $path = VIEW_PATH.DS.$path;
+        $path = VIEW_PATH.DS.$path . '.html';
 
         if (!file_exists($path)) {
-            throw new Exception('Template not found in path ' . $path);
+            throw new Exception('Template not found in path ' . $path );
         }
         $this->path = $path;
         $this->data = $data;

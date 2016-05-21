@@ -2,18 +2,21 @@
 
 class ManagerController extends Controller
 {
-
-    public function admin_index()
+    // Get data from DB to left panel
+    public function app_test_menu($language_name = null, $test_name = null)
     {
         $this->data['languages'] = Languages::find('all');
         $this->data['tests'] = Tests::find('all');
+    }
 
+    public function admin_index()
+    {
+        $this->app_test_menu();
     }
 
     public function admin_save_test()
     {
-        $this->data['languages'] = Languages::find('all');
-        $this->data['tests'] = Tests::find('all');
+        $this->app_test_menu();
 
         // Save from POST to DB Language and Test (test name)
         if (isset($_POST['save_test']) && $_POST['save_test'] == 'save') {
@@ -39,8 +42,7 @@ class ManagerController extends Controller
                 } else {
                     Session::setFlash('Название теста сохранено успешно!');
 
-                    $this->data['languages'] = Languages::find('all');
-                    $this->data['tests'] = Tests::find('all');
+                    $this->app_test_menu();
                     Session::saveData('test_id', $testModel->id);
                 }
             } else {
@@ -96,10 +98,11 @@ class ManagerController extends Controller
                 $this->data['current_question'] = Questions::find_by_id($params[1]);
                 $this->data['answers'] = Answers::find_all_by_question_id($params[1]);
             }
+        } else {
+            Router::redirect('admin/manager/index');
         }
 
-        $this->data['languages'] = Languages::find('all');
-        $this->data['tests'] = Tests::find('all');
+        $this->app_test_menu();
     }
 
 
@@ -140,11 +143,17 @@ class ManagerController extends Controller
         }
     }
 
+
+
+    public function admin_delete_test() 
+    {
+        return 'manager/admin_edit_test';
+    }
+
     public function admin_edit_language()
     {
-        $this->data['languages'] = Languages::find('all');
-        $this->data['tests'] = Tests::find('all');
-
         $params = App::getRouter()->getParams();
+
+        $this->app_test_menu();
     }
 }

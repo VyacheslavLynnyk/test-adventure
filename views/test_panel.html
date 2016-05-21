@@ -3,11 +3,9 @@
     <div>
         <?php foreach ($data['tests'] as $tests) : ?>
             <?php if ($tests->language_id == $languages->id ) : ?>
-                <p>
                     <a href="<?= REL_URL.'/home/test/'. $tests->id ?>">
                         <?= $tests->test ?>
                     </a>
-                </p>
             <?php endif ?>
         <?php endforeach ?>
     </div>

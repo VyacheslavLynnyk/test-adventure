@@ -1,23 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="23f9a667-bcb1-419b-838f-e0335f6aa0d3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/controllers/test.controller.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/admin_test_panel.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/manager/admin_edit_language.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/manager/admin_edit_test.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/test/index.html" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/views/test-panel.html" afterPath="$PROJECT_DIR$/views/test_panel.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controllers/manager.controller.php" afterPath="$PROJECT_DIR$/controllers/manager.controller.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/session.class.php" afterPath="$PROJECT_DIR$/lib/session.class.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/admin_default.html" afterPath="$PROJECT_DIR$/views/admin_default.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/default.html" afterPath="$PROJECT_DIR$/views/default.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/home/index.html" afterPath="$PROJECT_DIR$/views/home/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/manager/admin_index.html" afterPath="$PROJECT_DIR$/views/manager/admin_index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/manager/admin_save_test.html" afterPath="$PROJECT_DIR$/views/manager/admin_save_test.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/webroot/js/main-js.js" afterPath="$PROJECT_DIR$/webroot/js/main-js.js" />
-    </list>
+    <list default="true" id="23f9a667-bcb1-419b-838f-e0335f6aa0d3" name="Default" comment="" />
     <ignored path="test-adventure.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -445,12 +429,12 @@
       <option name="presentableId" value="Default" />
       <updated>1462908569672</updated>
       <workItem from="1462908571301" duration="11982000" />
-      <workItem from="1463214729644" duration="38253000" />
+      <workItem from="1463214729644" duration="38954000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50235000" />
+    <option name="totallyTimeSpent" value="50936000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
