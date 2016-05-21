@@ -10,12 +10,24 @@ class Controller
 
     protected $view_path;
 
+    protected $no_layout;
+
     /**
      * @return mixed
      */
     public function getModel()
     {
         return $this->model;
+    }
+
+    public function useLayout()
+    {
+        return (isset($this->no_layout) && ($this->no_layout != null)) ? false : true;
+    }
+
+    public function setNoLayout($value = true)
+    {
+        $this->no_layout = $value;
     }
 
     /**

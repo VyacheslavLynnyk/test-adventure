@@ -1,5 +1,18 @@
 $(function() {
+
+    // Left Panel Menu
     // $( "#tests-menu" ).accordion();
+    var treeOptions = {
+        data: testsTree,
+        enableLinks: true,
+        color: 'blue'
+    };
+    // TODO selecteble test
+    // $('#treeTests').treeview('collapseAll', { silent: true });
+    $( "#treeTests" ).treeview(treeOptions);
+    console.log('main-js');
+
+    // Menu end
 
     /* Answer add */
     var numAnswer = 1;

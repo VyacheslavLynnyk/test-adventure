@@ -27,11 +27,15 @@ class App
             throw new Exception('Method ' . $controller_method . ' of class ' . $controller_class . ' does not exist');
         }
 
-        // Select layout
-        $layout = Config::get('routes')[self::$router->getRoute()] . "default"; // !!
-        $layout_path = $layout;
-        $layout_view_obj = new View(compact('content'), $layout_path);
-        echo $layout_view_obj->render();
+        if ($controller_obj->useLayout() !== false) {
+            // Select layout
+            $layout = Config::get('routes')[self::$router->getRoute()] . "default"; // !!
+            $layout_path = $layout;
+            $layout_view_obj = new View(compact('content'), $layout_path);
+            echo $layout_view_obj->render();
+        } else {
+            echo $content;
+        }
     }
 
     

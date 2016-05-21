@@ -9,15 +9,21 @@
           integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
     <link rel="stylesheet" href="<?=REL_URL?>/css/normalize.css">
     <link rel="stylesheet" href="<?=REL_URL?>/css/main.css">
-    <link rel="stylesheet" href="<?=REL_URL?>/css/adds-css.css">
+    <link class="pull-right" rel="stylesheet" href="<?=REL_URL?>/css/adds-css.css">
 
 </head>
 <body>
+<?php
+if (Auth::checkLoginActive() == false) {
+    Router::redirect('auth/index');
+}
+?>
     <div class="blog-masthead">
         <div class="container">
             <nav class="blog-nav">
                 <?=Html::a_is_active('home', 'Tests',['blog-nav-item'])?>
                 <?=Html::a_is_active('profile', 'Profile',['blog-nav-item'])?>
+                <?=Html::a_is_active('auth/logout', Auth::getLogin().' (Выйти)',['blog-nav-item pull-right'])?>
             </nav>
         </div>
     </div>

@@ -5,27 +5,19 @@
             <?php include VIEW_PATH . DS . 'admin_test_panel.html' ?>
         </div>
 
-        <div var_dump>
-            <?= isset($this->data['var_dump']) ? $this->data['var_dump'] : '' ?>
-        </div>
-
         <div class="col-md-7">
-            <form action="<?= REL_URL . '/admin/manager/save-test' ?>" method="POST">
-                <p>Choose test language:
-                    <select name="set_language">
-                        <option value="" selected>--- not set --- </option>
-                        <?php foreach ($data['languages'] as $languages) : ?>
-                            <option value="<?= $languages->id ?>"> <?= $languages->language ?> </option>
-                        <?php endforeach ?>
-                    </select>
-<!--                  // TODO  make checkbox which switchs between select and input boxes-->
-                    or add new <input type="text" name="add_language">
-                </p>
-                <p>Write test name <input type="text" name="test_name" required = "required"></p>
-                <div>
-                    <input type="text" hidden name="save_test" value="save">
-                    <input type="submit" class="btn btn-info btn-lg pull-left">Create</input>
+            <form action="<?= REL_URL . '/admin/manager/edit-language/'.$data['params'] ?>" method="POST">
+                <div class="form-inline form-horizontal">
+                    <div class="form-group">
+                        <label for="test-name">Имя теста:</label>
+                        <input id="language-name" class="form-control" type="text" name="language_name" required="required" value="<?= $data['language_name'] ?>">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" hidden name="save_test" value="save">
+                        <input type="submit" class="btn btn-info" value="Сохранить">
+                    </div>
                 </div>
+
             </form>
         </div>
     </div>

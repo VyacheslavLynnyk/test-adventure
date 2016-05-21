@@ -4,7 +4,7 @@ function mvc_autoload($class_name)
 {
     $class_name = strtolower($class_name);
     $lib_path = ROOT . DS . 'lib' . DS . $class_name . '.class.php';
-    $controller_path = ROOT . DS . 'controllers' . DS . str_replace('controller', '', $class_name) . '.controller.php';
+    $controller_path = ROOT . DS . 'controllers' . DS . str_replace('controller', '.controller', $class_name) . '.php';
     $models_path = ROOT . DS . 'models' . DS . $class_name . '.model.php';
 
     if (file_exists($lib_path)) {
