@@ -17,9 +17,19 @@ class Auth extends Model
         }
     }
 
+    public static function getRole($loginPost = null)
+    {
+        if (isset($user) || isset($_COOKIE['user']) || isset($loginPost)) {
+            $login = isset($_COOKIE['user']) ? $_COOKIE['user'] : $loginPost;
+            self::$user = !isset(self::$user) ? Users::find_by_login_mail($login) : self::$user;
+            return self::$user->role;
+        }
+
+        return false;
+    }
+
     public static function getLogin()
     {
-
         return isset(self::$user) ? self::$user->login_mail : $_COOKIE['user'];
     }
 
@@ -69,8 +79,5 @@ class Auth extends Model
         unset($_SESSION['auth']);
         setcookie("user", '', 1, "/");
         setcookie("userId", '', 1, "/");
-
     }
-
-
 }

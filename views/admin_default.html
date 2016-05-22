@@ -15,11 +15,7 @@
 </head>
 <body>
 
-<?php
-if (Auth::checkLoginActive() == false) {
-    Router::redirect('auth/index');
-}
-?>
+    <?php if (Auth::checkLoginActive() == false) { Router::redirect('auth/index'); } ?>
 
     <div class="blog-masthead">
         <div class="container">

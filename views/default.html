@@ -13,11 +13,9 @@
 
 </head>
 <body>
-<?php
-if (Auth::checkLoginActive() == false) {
-    Router::redirect('auth/index');
-}
-?>
+
+    <?php if (Auth::checkLoginActive() == false) { Router::redirect('auth/index'); } ?>
+
     <div class="blog-masthead">
         <div class="container">
             <nav class="blog-nav">
@@ -28,13 +26,12 @@ if (Auth::checkLoginActive() == false) {
         </div>
     </div>
 
+    <?php if (Session::hasFlash()) : ?>
+        <div class="alert-window"> <?= Session::flash() ?> </div>
+    <?php endif ?>
+
     <?=$data['content']?>
 
-    <?php if (Session::hasFlash()) : ?>
-        <div class="alert-window">
-            <?= Session::flash() ?>
-        </div>
-    <?php endif ?>
 
 <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
     <script src="<?=REL_URL?>/js/jquery.min.js"></script>

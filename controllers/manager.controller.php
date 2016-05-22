@@ -164,24 +164,6 @@ class ManagerController extends Controller
                 $languageModel->save();
             }
             $this->data['language_name'] = $languageModel->language;
-            // Get all questions
-//        if (!isset($params[1])) {
-//            $this->data['test'] = Questions::find_all_by_question_id($languageModel->id);
-//        }
-//        if (isset($params[1]) && (int) $params[1] !== null) {
-//            if (isset($_POST['question']) && $_POST['question'] != null && $_POST['answer'][0] != null) {
-//                $test_id = $params[0];
-//                $question = htmlspecialchars_decode(trim($_POST['question']));
-//                $question_id = $params[1];
-//                $answers_true = (array) $_POST['answer_true'];
-//                $answers = (array) $_POST['answer'];
-//
-//                $this->app_save_test($test_id, $answers, $answers_true, $question, $question_id);
-//            }
-//
-//            $this->data['current_question'] = Questions::find_by_id($params[1]);
-//            $this->data['answers'] = Answers::find_all_by_question_id($params[1]);
-//        }
         }else {
         Router::redirect('admin/manager/index');
     }

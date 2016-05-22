@@ -12,6 +12,13 @@
     <link rel="stylesheet" href="<?=REL_URL?>/css/adds-css.css">
 </head>
 <body>
+
+<?php if (Session::hasFlash()) : ?>
+    <div class="alert-window">
+        <?= Session::flash() ?>
+    </div>
+<?php endif ?>
+
     <div id="registration">
         <form action="<?= REL_URL . '/auth/index' ?>" method="POST">
             <h1>Добро пожаловать в Test Adventure</h1>

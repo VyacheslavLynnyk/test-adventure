@@ -20,7 +20,8 @@ class HomeController extends Controller
 
     public function admin_index()
     {
-        
+        $this->index();
+        return 'home/index';
     }
 
     

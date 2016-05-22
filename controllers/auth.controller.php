@@ -12,7 +12,8 @@ class AuthController extends Controller {
     public function login()
     {
         if (false !== Auth::checkLoginActive()){
-            Router::redirect('home/index');
+
+            $this->applyRole();
         }
 
         if (isset($_POST['login']) && $_POST['login'] != null
@@ -38,8 +39,7 @@ class AuthController extends Controller {
 
                 if (false !== Auth::check($posts['login'], $posts['pass'])) {
                     Auth::setCookie($posts['login']);
-                    Router::redirect('home/index');
-                    exit;
+                    $this->applyRole($posts['login']);
                 }
             }
         }
@@ -51,5 +51,21 @@ class AuthController extends Controller {
         Auth::unsetCookieAuth();
         Router::redirect('home/index');
         exit;
+    }
+
+    public function applyRole($login = null)
+    {
+        $role = Auth::getRole($login);
+        if ($role == 'admin') {
+            Router::redirect('admin/home/index');
+            exit;
+        } elseif ($role == 'user') {
+            Router::redirect('home/index');
+            exit;
+        }else {
+            Session::setFlash('У вас нет привилегий');
+            $this->logout();
+            exit;
+        }
     }
 }
