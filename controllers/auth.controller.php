@@ -18,10 +18,10 @@ class AuthController extends Controller {
 
         if (isset($_POST['login']) && $_POST['login'] != null
             && isset($_POST['pass']) && $_POST['pass']) {
-
+        
             $posts['login']  = htmlentities($_POST['login']);
             $posts['pass']  = htmlentities($_POST['pass']);
-
+            
             $errors = [
                 'login'=>'',
                 'pass'=>''
@@ -36,11 +36,13 @@ class AuthController extends Controller {
             if (!empty($errors['login']) or !empty($errors['pass'])){
                 Session::setFlash($errors['login'] . '<br>' . $errors['pass']);
             } else {
-
                 if (false !== Auth::check($posts['login'], $posts['pass'])) {
                     Auth::setCookie($posts['login']);
                     $this->applyRole($posts['login']);
+                } else {
+                    $this->create_user_profile($posts['login'], $posts['pass']);
                 }
+
             }
         }
 
@@ -67,5 +69,34 @@ class AuthController extends Controller {
             $this->logout();
             exit;
         }
+    }
+
+    public function create_user_profile($login = null, $pass = null)
+    {
+
+        if (isset($_POST['registration']) && isset($login) && isset($pass)) {
+            $this->setNoLayout(true);
+            $user = Users::find_by_login_mail($login);
+            if (isset($user) && $user->login_mail == $login) {
+                Session::setFlash('Такой пользователь существует');
+                Router::redirect('auth/index');
+                exit;
+            }
+            $user = new Users;
+            $user->login_mail = $login;
+            $user->pass = crypt($pass, 'mySolt');
+            $user->role = 'user';
+            $user->active = 1;
+
+            $user->save();
+
+            Auth::setCookie($login);
+        }
+
+        if (Auth::checkLoginActive() !== false) {
+            Router::redirect('profile/index');
+        }
+
+        Router::redirect('auth/index');
     }
 }

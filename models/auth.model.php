@@ -12,7 +12,7 @@ class Auth extends Model
         if (empty($login) !== false or !isset(self::$user) ) {
             return false;
         } else {
-            $res = (!empty($login) and (self::$user->pass == $pass));
+            $res = (!empty($login) and (self::$user->pass == crypt($pass, 'mySalt')));
             return $res;
         }
     }
@@ -30,8 +30,14 @@ class Auth extends Model
 
     public static function getLogin()
     {
-        return isset(self::$user) ? self::$user->login_mail : $_COOKIE['user'];
+        if ($login = $_COOKIE['user']) {
+            self::$user = !isset(self::$user) ? Users::find_by_login_mail($login) : self::$user;
+            return isset(self::$user) ? self::$user->login_mail : $login;
+        }
+        return false;
     }
+
+
 
     public static function calcId($login)
     {
@@ -80,4 +86,5 @@ class Auth extends Model
         setcookie("user", '', 1, "/");
         setcookie("userId", '', 1, "/");
     }
+
 }

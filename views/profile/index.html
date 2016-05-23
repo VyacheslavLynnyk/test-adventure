@@ -1,6 +1,77 @@
-<div class="container">
-    <h1 class="text-center">My Profile</h1>
 
-    
-</div>
+    <div class="container">
+        <h1 class="text-center">My Profile</h1>
+        <form action="<?= REL_URL . '/profile/index' ?>"
+              class="form-horizontal create-profile" method="post" enctype="multipart/form-data" >
+            <input type="hidden" name="MAX_FILE_SIZE" value="15000000" />
+            <div class="row profile-field">
+
+                <div class="col-sm-12 col-md-6">
+                    <div class="avatar-preview">
+                        <img id="avatar"
+                             src="<?= isset($this->data['avatar']) ? $this->data['avatar'] : REL_URL.'/images/avatars/avatar.png' ?>" alt="My Avatar" />
+                    </div>
+                </div>
+
+                <div class="col-sm-12 col-md-6">
+                    <div class="form-group">
+                        <label for="form--login" class="col-sm-4 control-label">Логин:</label>
+                        <div class="col-sm-8">
+                            <input id="form--login" type="email"
+                                   class="form-control" placeholder="введите e-mail (логин)"
+                                <?php $login = Auth::getLogin() ?>
+                                <?= isset($login) ? ' disabled value="'.Auth::getLogin().'" ' : '' ?> >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="form--password" class="col-sm-4 control-label">Пароль:</label>
+                        <div class="col-sm-8">
+                            <input id="form--password" type="password" class="form-control" placeholder="Ваш пароль"
+                                <?= isset($login) ? ' disabled value="************"' : '' ?> >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="form--name" class="col-sm-4 control-label">Полное Имя:</label>
+                        <div class="col-sm-8">
+                            <input id="form--name" type="text" class="form-control"
+                                <?= isset($this->data['full-name'] ) ? ' value="'.$this->data['full-name'] .'" ' : '' ?>
+                                   placeholder="Имя Фамилия" required  name="full-name">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="form--name" class="col-sm-4 control-label">Телефон:</label>
+                        <div class="col-sm-8">
+                            <input id="form--name" type="number" class="form-control"
+                                <?= isset($login) ? ' value="'.$this->data['phone'].'" ' : '' ?>
+                                   placeholder="Телефон:" name="phone">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">
+                            <i class="glyphicon glyphicon-picture"></i>
+                            Аватар:
+                        </label>
+                        <div class="col-sm-4">
+                            <div id="remove-ava" class="btn btn-danger" type="file">
+                                <i class="glyphicon glyphicon-trash"></i>
+                            </div>
+                            <div class="col-sm-4">
+                                <input class="btn btn-file" type="file"
+                                       multiple="false" accept="image/*" id="avatar-input" name="avatar">
+                            </div>
+                        </div>
+                    </div>
+                    <button id="profile--submit" class="btn btn-lg btn-primary btn-block" type="submit" name="profile-save">Save Profile</button>
+
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // it's for Avatar
+        var REL_URL = "<?= REL_URL ?>";
+    </script>
+
 

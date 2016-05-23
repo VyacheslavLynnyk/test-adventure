@@ -42,7 +42,7 @@
 
 
 
-#registration {
+#registration  {
     display: block;
     text-align: center;
     width: 100%;
@@ -51,11 +51,32 @@
     margin: auto;
 }
 
-#registration form {
+#registration form{
     padding: calc(40vh - 50px) 0;
     height: 50px;
 
 }
+
+.create-profile {
+    padding: calc(20vh - 50px) 0;
+    height: 50px;
+}
+.avatar-preview > img{
+    /*width: 100%;*/
+    max-height: 400px;
+    border: 1px solid whitesmoke;
+    border-radius: 50px;
+    box-shadow: 2px 3px 10px grey;
+}
+#remove-ava {
+    display: none;
+}
+
+#profile--submit {
+    margin-top: 167px;
+}
+
+
 #registration form > h1 {
     font-size: 2.4em;
     padding-bottom: 20px;
