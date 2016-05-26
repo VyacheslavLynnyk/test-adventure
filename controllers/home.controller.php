@@ -11,6 +11,9 @@ class HomeController extends Controller
 
     public function test()
     {
+        $this->data['languages'] = Languages::find('all');
+        $this->data['tests'] = Tests::find('all');
+
         $params = App::getRouter()->getParams();
 
         if (isset($params[0]) && (int)$params[0] == $params[0]) {
@@ -23,6 +26,6 @@ class HomeController extends Controller
         $this->index();
         return 'home/index';
     }
-
+    
     
 }
