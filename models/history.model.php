@@ -1,5 +1,5 @@
 <?php
-class history extends Model
+class History extends Model
 {
-    
+    static $table_name = 'history';
 }

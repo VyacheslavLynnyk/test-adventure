@@ -1,0 +1,17 @@
+<div>
+    <hr>
+    <?php
+    if (isset($this->data['result']) and $this->data['result']['is_passed'] == true) : ?>
+          <h1>Поздравляем с успешной здачей теста!</h1>
+            <h3>Результаты:</h3>
+            <p>Ваша оценка: <?= $this->data['result']['mark'] ?> из
+                <?=$this->data['result']['max_mark'] ?> (<?= $this->data['result']['pass_percent'] ?>)
+            </p>
+        </ul>
+    <?php else : ?>
+        <h1>You are looser</h1>
+    <?php endif;?>
+    
+<?php print_r( $this->data['result']); ?>
+
+</div>

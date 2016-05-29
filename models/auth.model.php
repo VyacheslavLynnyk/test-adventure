@@ -28,16 +28,28 @@ class Auth extends Model
         return false;
     }
 
-    public static function getLogin()
+    public static function setUser()
     {
-        if ($login = $_COOKIE['user']) {
-            self::$user = !isset(self::$user) ? Users::find_by_login_mail($login) : self::$user;
-            return isset(self::$user) ? self::$user->login_mail : $login;
+        if (!isset($user)) {
+            self::$user = ($login = $_COOKIE['user']) ? Users::find_by_login_mail($login) : false;
         }
-        return false;
     }
 
+    public static function getLogin()
+    {
+        if  (!isset($user)) {
+            self::setUser();
+        }
+        return (self::$user) ? self::$user->login_mail : false;
+    }
 
+    public static function getUserId()
+    {
+        if  (!isset($user)) {
+            self::setUser();
+        }
+        return (self::$user) ? self::$user->id: false;
+    }
 
     public static function calcId($login)
     {
@@ -48,6 +60,7 @@ class Auth extends Model
             return false;
         }
     }
+
 
     public static function checkLoginActive()
     {

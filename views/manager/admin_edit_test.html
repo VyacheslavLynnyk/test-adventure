@@ -6,33 +6,42 @@
             <?php $user_uri_test = '/admin/manager/edit-test/'; ?>
             <?php include VIEW_PATH . DS . 'test_panel.html' ?>
         </div>
-
+<!-- EDIT Test name-->
         <div class="col-md-7">
-            <form class="" action="<?= REL_URL . '/admin/manager/edit-test/'.$data['params'] ?>" method="POST">
+            <form role="form" action="<?= REL_URL . '/admin/manager/edit-test/'.$data['params'] ?>" method="POST">
                 <div class="form-inline form-horizontal">
                     <div class="form-group">
                         <label for="test-name">Имя теста:</label>
-                        <input id="test-name" class="form-control" type="text" name="test_name" required="required" value="<?= $data['test_name'] ?>">
+                        <input id="test-name" class="form-control" type="text" name="test_name"
+                               required="required" value="<?= $data['test_name'] ?>">
                     </div>
                     <div class="form-group">
                         <input type="text" hidden name="save_test" value="save">
                         <input type="submit" class="btn btn-info" value="Сохранить">
+                        <a class="btn btn-danger" href="<?= REL_URL . '/admin/manager/delete-test/'.$data['params'] ?>">
+                            Удалить
+                        </a>
                     </div>
                 </div>
 
-
+<!-- EDIT QUESTIONS NAME-->
+                <hr>
                 <?php if (isset($data['questions']) && $data['questions'] != null) : ?>
-                <ol>
+                <ol class="panel-heading">
                     <?php foreach ($data['questions'] as $question) : ?>
                     <li>
                         <a href="<?= REL_URL . "/admin/manager/edit-test/" . $data['params'] . "/" ?><?= $question->id ?>">
                             <?= $question->question ?>
                         </a>
+                        <a class="btn btn-danger"
+                           href="<?= REL_URL . '/admin/manager/delete-test/'.$data['params'] . "/" ?><?= $question->id ?>">
+                            Удалить
+                        </a>
                     </li>
                     <?php endforeach ?>
                 </ol>
                 <?php endif ?>
-            <hr>
+
 
             <?php if (isset($data['current_question']) && $data['current_question'] != null) : ?>
                 <div class="page-header form-group">

@@ -1,3 +1,7 @@
+h1, h2, h3, p {
+    font-family: Georgia, "Times New Roman";
+}
+
 .alert-window {
     position: absolute;
     left: calc(45% - 150px);
@@ -97,7 +101,7 @@
 
 .container h1 {
     margin-top: 1em;
-    font: 2.5em Arial, sans-serif;
+    font-size: 2.5em ;
     color: #0f0f0f;
     font-weight: bold;
     text-shadow: 2px 2px 10px grey;

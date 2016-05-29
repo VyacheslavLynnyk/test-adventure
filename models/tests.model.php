@@ -28,6 +28,7 @@ class Tests extends Model
         $result = [];
         // Evaluation point
         $point = 1;
+        $max_mark = 0;
         if (!isset($test_id) || !is_numeric($test_id)) {
             return false;
         }
@@ -53,8 +54,9 @@ class Tests extends Model
         }
 
         $result['count'] = sizeof($correct_answers);
-        $result['mark'] = array_sum($result['task']);
-        $result['pass'] = ($result['mark']*100/$result['count']).'%';
+        $result['mark'] = array_sum($result['tasks']);
+        $result['max_mark'] = $result['count'] * $point;
+        $result['pass_percent'] = ($result['max_mark'] != null) ? (round(($result['mark']*100/$result['max_mark']), 1)).'%' : 'Error';
         return $result;
 
     }

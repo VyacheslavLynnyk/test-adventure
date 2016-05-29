@@ -117,6 +117,43 @@ class ManagerController extends Controller
         $this->app_test_menu();
     }
 
+    public function admin_delete_test()
+    {
+        $params = App::getRouter()->getParams();
+        if (sizeof($params) == 1 ) {
+            if (isset($params[0]) && is_numeric($params[0])) {
+                $test = Tests::find_by_id($params[0]);
+                $test->delete();
+            }
+        } elseif (sizeof($params) >= 2 ) {
+            if (isset($params[0]) && is_numeric($params[0]) &&
+                isset($params[1]) && is_numeric($params[1])) {
+                //remove answers
+                $answerModelArr = Answers::find_all_by_question_id($params[1]);
+                foreach ($answerModelArr as $answerModel) {
+                    $answerModel->delete();
+                }
+                //remove questions
+                $question = Questions::find_by_id($params[1]);
+                $question->delete();
+            }
+        }
+        Router::redirect('admin/manager/index');
+    }
+
+    public function admin_delete_language()
+    {
+        $params = App::getRouter()->getParams();
+        if (sizeof($params) >= 1 ) {
+            if (isset($params[0]) && is_numeric($params[0])
+                && is_numeric($params[0]) && is_numeric($params[0])) {
+                $language = Languages::find_by_id($params[0]);
+                $language->delete();
+            }
+        }
+        Router::redirect('admin/manager/index');
+    }
+
 
     /**
      * @param $test_id
@@ -155,12 +192,6 @@ class ManagerController extends Controller
         }
     }
 
-
-
-    public function admin_delete_test() 
-    {
-        return 'manager/admin_edit_test';
-    }
 
     public function admin_edit_language()
     {
