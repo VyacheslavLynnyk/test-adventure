@@ -2,6 +2,18 @@
 
 class ManagerController extends Controller
 {
+    public function __construct(array $data = [])
+    {
+        parent::__construct($data);
+
+        if (Auth::checkLoginActive() == false) {
+            Router::redirect('auth/index');
+        }
+        if (Auth::getRole() != 'admin') {
+            throw new Exception('Error 404! Page not found.');
+        }
+    }
+
     // Get data from DB to left panel
     public function app_test_menu($language_name = null, $test_name = null)
     {

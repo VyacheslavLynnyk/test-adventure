@@ -1,0 +1,73 @@
+<?php
+
+echo "<pre>";
+
+print_r ($this->data['testArray']);
+print_r ($this->data['dataTest']);
+echo "<pre>";
+?>
+<!1--
+<div class="container">
+    <h1 class="text-center">Test Manager</h1>
+    <div class="row">
+        <div class="col-md-3" id="tests-menu">
+
+</div>
+
+<div class="col-md-12">
+    <form role="form" class="" action="<?= REL_URL . '/admin/manager/edit-test/'.$data['params'] ?>" method="POST">
+        <div class="form-inline form-horizontal">
+            <div class="form-group">
+                <label for="test-name">Имя теста:</label>
+                <input id="test-name" class="form-control" type="text" name="test_name" required="required" value="<?= $data['test_name'] ?>">
+            </div>
+            <div class="form-group">
+                <input type="text" hidden name="save_test" value="save">
+                <input type="submit" class="btn btn-info" value="Сохранить">
+            </div>
+        </div>
+
+
+
+        <?php // if (isset($data['current_question']) && $data['current_question'] != null) : ?>
+            <div class="page-header form-group">
+                <label for="InputQuestion">Введите вопрос:</label>
+                    <textarea class="form-control" id="InputQuestion" name="question"><?=
+                        $data['current_question']->question;
+                        ?></textarea>
+            </div>
+            <div class="form-group">
+                <label for="InputFile">Загрузка картинки:</label>
+                <input type="file" id="InputFile">
+            </div>
+            <h3>Ответы:</h3>
+            <div id="answer-list">
+
+                <?php // foreach ($data['answers'] as $answer) : ?>
+                    <div class="form-group row">
+                        <div class="col-sm-1">
+                            <input type="checkbox" <?= (is_numeric($answer->is_true)) ? 'checked' : '' ?>
+                                   name="answer_true[]" value="<?= $counter = isset($counter) ? ++$counter : 0 ?>">
+                        </div>
+                        <div class="col-sm-11">
+                            <textarea  class="form-control" name="answer[]"><?= $answer->answer ?></textarea>
+                        </div>
+                    </div>
+                <?php // endforeach ?>
+
+            </div>
+            <div id="answer-controll" class="form-group text-center">
+                <input type="button" class="btn btn-success" id="add-answer" value="+ Add answer">
+                <input type="button" class="btn btn-danger" id="remove-answer" value="- Remove answer">
+            </div>
+
+            <div>
+                <input type="text" hidden name="save_test" value="save_question">
+                <input type="submit" class="btn btn-info btn-lg pull-right"  value="Save question">
+            </div>
+        <?php // endif ?>
+    </form>
+</div>
+</div>
+</div>
+

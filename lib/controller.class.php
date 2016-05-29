@@ -50,5 +50,6 @@ class Controller
     {
         $this->data = $data;
         $this->params = App::getRouter()->getParams();
+        
     }
 }

@@ -2,7 +2,9 @@
     <h1 class="text-center">Test Manager</h1>
     <div class="row">
         <div class="col-md-3" id="tests-menu">
-            <?php include VIEW_PATH . DS . 'admin_test_panel.html' ?>
+            <?php $user_uri_language = '/admin/manager/edit-language/'; //links for left panel?>
+            <?php $user_uri_test = '/admin/manager/edit-test/'; ?>
+            <?php include VIEW_PATH . DS . 'test_panel.html' ?>
         </div>
 
         <div class="col-md-7">

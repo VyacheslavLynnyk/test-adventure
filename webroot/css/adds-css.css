@@ -94,3 +94,13 @@
     border-radius: 4px;
     box-shadow: 0px 2px 100px #bbfdff;
 }
+
+.container h1 {
+    margin-top: 1em;
+    font: 2.5em Arial, sans-serif;
+    color: #0f0f0f;
+    font-weight: bold;
+    text-shadow: 2px 2px 10px grey;
+
+
+}

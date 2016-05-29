@@ -15,12 +15,10 @@
 </head>
 <body>
 
-    <?php if (Auth::checkLoginActive() == false) { Router::redirect('auth/index'); } ?>
-
     <div class="blog-masthead">
         <div class="container">
             <nav class="blog-nav">
-                <?=Html::a_is_active('admin/home', 'Tests',['blog-nav-item'])?>
+                <?=Html::a_is_active('admin/test', 'Tests',['blog-nav-item'])?>
                 <?=Html::a_is_active('admin/profile', 'Profile',['blog-nav-item'])?>
                 <?=Html::a_is_active('admin/manager', 'Test Manager',['blog-nav-item'])?>
                 <?=Html::a_is_active('auth/logout', Auth::getLogin().' (Выйти)',['blog-nav-item pull-right'])?>

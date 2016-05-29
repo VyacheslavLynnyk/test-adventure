@@ -51,7 +51,7 @@ class AuthController extends Controller {
     public function logout()
     {
         Auth::unsetCookieAuth();
-        Router::redirect('home/index');
+        Router::redirect('test/index');
         exit;
     }
 
@@ -59,10 +59,10 @@ class AuthController extends Controller {
     {
         $role = Auth::getRole($login);
         if ($role == 'admin') {
-            Router::redirect('admin/home/index');
+            Router::redirect('admin/test/index');
             exit;
         } elseif ($role == 'user') {
-            Router::redirect('home/index');
+            Router::redirect('test/index');
             exit;
         }else {
             Session::setFlash('У вас нет привилегий');

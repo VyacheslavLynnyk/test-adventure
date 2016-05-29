@@ -1,0 +1,12 @@
+<?php foreach ($data['languages'] as $languages) : ?>
+    <h3><?= $languages->language ?></h3>
+    <div>
+        <?php foreach ($data['tests'] as $tests) : ?>
+            <?php if ($tests->language_id == $languages->id ) : ?>
+                    <a href="<?= REL_URL.'/test/language/'. $tests->id ?>">
+                        <?= $tests->test ?>
+                    </a>
+            <?php endif ?>
+        <?php endforeach ?>
+    </div>
+<?php endforeach ?>

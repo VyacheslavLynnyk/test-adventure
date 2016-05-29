@@ -41,5 +41,11 @@ class ProfileController extends Controller
         $this->data['role'] = $user->role;
 
     }
+
+    public function admin_index()
+    {
+        $this->index();
+        return 'profile/index';
+    }
     
 }

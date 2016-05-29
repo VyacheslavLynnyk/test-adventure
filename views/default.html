@@ -12,8 +12,10 @@
     <link class="pull-right" rel="stylesheet" href="<?=REL_URL?>/css/adds-css.css">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="<?=REL_URL?>/js/ie8-responsive-file-warning.js"></script>
-    <![endif]--><script src="<?=REL_URL?>/js/ie-emulation-modes-warning.js"></script>
+    <!--[if lt IE 9]>
+    <script src="<?=REL_URL?>/js/ie8-responsive-file-warning.js"></script>
+    <![endif]-->
+    <script src="<?=REL_URL?>/js/ie-emulation-modes-warning.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -23,13 +25,10 @@
 
 </head>
 <body>
-
-    <?php if (Auth::checkLoginActive() == false) { Router::redirect('auth/index'); } ?>
-
     <div class="blog-masthead">
         <div class="container">
             <nav class="blog-nav">
-                <?=Html::a_is_active('home', 'Tests',['blog-nav-item'])?>
+                <?=Html::a_is_active('test', 'Tests',['blog-nav-item'])?>
                 <?=Html::a_is_active('profile', 'Profile',['blog-nav-item'])?>
                 <?=Html::a_is_active('auth/logout', Auth::getLogin().' (Выйти)',['blog-nav-item pull-right'])?>
             </nav>
@@ -43,13 +42,14 @@
     <?=$data['content']?>
 
 
-<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     <script src="<?=REL_URL?>/js/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
             integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="<?=REL_URL?>/js/jquery-ui.min.js"></script>
+    <script src="<?=REL_URL?>/js/bootstrap-treeview.min.js"></script>
     <script src="<?=REL_URL?>/js/main-js.js"></script>
     <script src="<?=REL_URL?>/js/load-avatar.js"></script>
 

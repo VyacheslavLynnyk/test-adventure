@@ -1,12 +1,31 @@
-<?php foreach ($data['languages'] as $languages) : ?>
-    <h3><?= $languages->language ?></h3>
-    <div>
-        <?php foreach ($data['tests'] as $tests) : ?>
-            <?php if ($tests->language_id == $languages->id ) : ?>
-                    <a href="<?= REL_URL.'/home/test/'. $tests->id ?>">
-                        <?= $tests->test ?>
-                    </a>
-            <?php endif ?>
-        <?php endforeach ?>
-    </div>
-<?php endforeach ?>
+<div id="languages">
+<?php
+//TODO move in other place
+$data_tree = '';
+foreach ($data['languages'] as $languages) {
+    $data_tree .= '{ text: "' . $languages->language.'",';
+    if (isset($user_uri_language)) {
+        $data_tree .= 'href: "' . REL_URL . $user_uri_language . $languages->id . '",' . "\n";
+    }
+    $data_tree .= 'nodes:[';
+
+    foreach ($data['tests'] as $tests) {
+        if ($tests->language_id == $languages->id ) {
+
+            $data_tree .=  '{';
+            $data_tree .= 'text: "' . htmlspecialchars($tests->test) .'",';
+            $data_tree .= 'href: "' . REL_URL . $user_uri_test . $tests->id . '",';
+            $data_tree .= "}, \n";
+        }
+    }
+    $data_tree .= "], \n".'},';
+}
+?>
+
+</div>
+<div id="treeTests" /></div>
+
+
+<script>
+    var testsTree = [ <?= $data_tree ?> ];
+</script>
