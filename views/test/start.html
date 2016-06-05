@@ -1,50 +1,61 @@
-<div class="container">
+<div class="container white-transp page-header">
+
+    <div id="pagination-bar" class="text-center">
+        <ul class="pagination pagination-lg">
+<!--            <li><a href="#1" class="active"> Первая </a></li>-->
+            <li><a id="pagination-prev"> << </a></li>
+            <?php $question_counter = sizeof($this->data['dataTest']) - 1?>
+            <?php for ($pag_page = 1 ; $pag_page <= $question_counter ; $pag_page++ ) : ?>
+                <li class="numbers"><a href="#<?= $pag_page ?>"><?= $pag_page ?></a></li>
+            <?php endfor; ?>
+            </li>
+            <li><a id="pagination-next"> >> </a></li>
+<!--            <li><a href="#--><?//= $question_counter ?><!--">Последняя</a></li>-->
+        </ul>
+    </div>
+
     <form role="form" action="<?= REL_URL . '/test/end'?>" method="post">
-        <nav>
-            <ul class="pagination">
-                <?php for ($question_counter= 1; $question_counter < sizeof($this->data['dataTest']); $question_counter++) : ?>
-<!--                    <li><a class="active" href="#">1</a></li>-->
-                    <li><a href="#"><?=$question_counter?></a></li>
-                <?php endfor;?>
-            </ul>
-
         <?php $question_counter = 1; ?>
-        <?php foreach ($this->data['dataTest'] as $question_num => $question_data) : ?>
-
-            <?php if (!is_numeric($question_num)) :?>
-                <?php if ($question_num == 'test_id'): ?>
-                    <input type="text" hidden value="<?= $question_data ?>" name="test_id">
+        <div id="content-pagination">
+            <?php foreach ($this->data['dataTest'] as $question_num => $question_data) : ?>
+                <?php if (!is_numeric($question_num)) :?>
+                    <?php if ($question_num == 'test_id'): ?>
+                        <input type="text" hidden value="<?= $question_data ?>" name="test_id">
+                    <?php endif; ?>
+                        <?php continue; ?>
                 <?php endif; ?>
-                    <?php continue; ?>
-            <?php endif; ?>
 
-            </nav>
-            <div id="question<?=$question_counter++?>" class="page-header form-group">
-                <h3>Вопрос:</h3>
-                    <pre name="question"><?=
-                                $question_data['question'];
-                    ?></pre>
-            </div>
-    <!--        <div class="form-group">-->
-    <!--            <label for="InputFile">Загрузка картинки:</label>-->
-    <!--            <input type="file" id="InputFile">-->
-    <!--        </div>-->
+    <!--        QUESTION START -->
+                <div class="page-number-<?= $question_counter?> form-group page-header" style="display: none">
+                    <div>
+                        <h3>Вопрос:</h3>
+                            <pre name="question"><?=
+                                        $question_data['question'];
+                            ?></pre>
+                    </div>
+        <!--        <div class="form-group">-->
+        <!--            <label for="InputFile">Загрузка картинки:</label>-->
+        <!--            <input type="file" id="InputFile">-->
+        <!--        </div>-->
 
-            <h3>Ответы:</h3>
-            <div>
-                <?php  foreach ($question_data as $answer_num => $answer) : ?>
-                <?php if (!is_numeric($answer_num)) continue; ?>
-
-                <div class="checkbox">
-                    <label>
-                        <input class="big-checkbox" type="checkbox"
-                               name="user_answers[<?= $question_num ?>][<?= $answer_num ?>]" value="1">
-                        <?= $answer; ?>
-                    </label>
+                    <h3>Ответы:</h3>
+                    <div>
+                        <?php  foreach ($question_data as $answer_num => $answer) : ?>
+                        <?php if (!is_numeric($answer_num)) continue; ?>
+                            <div class="checkbox">
+                                <label>
+                                    <input class="big-checkbox" type="checkbox"
+                                           name="user_answers[<?= $question_num ?>][<?= $answer_num ?>]" value="1">
+                                    <?= $answer; ?>
+                                </label>
+                            </div>
+                        <?php endforeach ?>
+                    </div>
+               <?php  ++$question_counter ?>
                 </div>
-                <?php endforeach ?>
-            </div>
-        <?php endforeach ?>
+            <?php endforeach ?>
+        </div>
+<!--        QUESTION END-->
 
         <div>
             <input type="text" hidden value="<?= $this->data['startTime'] ?>" name="timer">
@@ -53,4 +64,61 @@
         </div>
 
     </form>
+
 </div>
+
+<script>
+    /*  ---PAGINATION---  */
+
+    var lastPage = <?= $question_counter ?>;
+    var numbers = $('.numbers');
+    var page = window.location.hash;
+    page = page.substr(1);
+    if (window.location.hash == '' || page =='1') {
+        page = 1;
+        window.location.hash = '1';
+    }
+
+    $('#pagination-prev').parent().after('<li class="pag-hider"><a>...</a></li>');
+//    numbers.hide();
+    $('.pag-hider').hide();
+    paginationStart(lastPage);
+
+
+    function paginationStart(lastPage)
+    {
+        var page = window.location.hash;
+        page = page.substr(1);
+
+        $('#content-pagination').children().hide();
+        $("#pagination-bar li").removeClass('active');
+        $("#pagination-bar a[href='#"+page+"']").parent().addClass('active');
+        $('.page-number-' + page).fadeIn(500);
+    };
+
+    $(window).bind('hashchange', function() {
+        paginationStart(lastPage);
+    });
+
+    $('.pag-hider').on('click', function() {
+        $(this).hide();
+        numbers.fadeIn(1000);
+    });
+    $('#pagination-prev').on('click', function() {
+        var page = window.location.hash;
+        page = page.substr(1);
+        if ( +page > 1 ) {
+            window.location.hash = +page - 1;
+
+        }
+    });
+    $('#pagination-next').on('click', function() {
+        var page = window.location.hash;
+        page = page.substr(1);
+        if ( +page < lastPage ) {
+            window.location.hash = +page + 1;
+        }
+    });
+    /*  ---PAGINATION---  END*/
+
+</script>

@@ -18,7 +18,9 @@
             <td><?= $statistic->question_count ?></td>
             <td><?= $statistic->mark.'/'.$statistic->max_mark ?></td>
             <td><?= $statistic->test_time?></td>
-            <td><?= ($statistic->is_passed == 1) ? 'V' : 'X' ?></td>
+            <td <?= ($statistic->is_passed == 1) ? ' class="success-transp" ' : ' class="danger-transp" '?> >
+                <?= ($statistic->is_passed == 1) ? 'V' : 'X' ?>
+            </td>
             <td><?= $statistic->pass_date ?></td>
         </tr>
         <?php endforeach; ?>
