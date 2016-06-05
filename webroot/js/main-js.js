@@ -14,7 +14,7 @@ $(function() {
 
     // Menu end
 
-    /* Answer add */
+/* Answer add */
     var numAnswer = 1;
     $( "#add-answer" ).click(function() {
         var checkbox = $("#answer-list div.form-group:last-child input[name='answer_true[]']");

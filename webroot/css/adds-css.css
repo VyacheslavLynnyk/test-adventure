@@ -108,3 +108,18 @@ h1, h2, h3, p {
 
 
 }
+
+#result-table {
+    width: 100%;
+    background: greenyellow;
+}
+#result-table tr:first-child {
+    font-size: 1.2em;
+    background: #428bca;
+    color: white;
+    text-shadow: 2px 2px 5px black;
+}
+
+#result-table td, #result-table th {
+    padding: 5px;
+}

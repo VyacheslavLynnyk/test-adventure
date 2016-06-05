@@ -41,8 +41,12 @@
                     <?php endforeach ?>
                 </ol>
                 <?php endif ?>
+                <div>
+                    <input type="text" hidden name="edit_test" value="save">
+                    <a href="<?= REL_URL . '/admin/manager/save-test/' . $data['params'] ?>" type="submit" class="btn btn-info btn-lg pull-left">Create new question</a>
+                </div>
 
-
+<!--EDIT QUESTION ANSWERS-->
             <?php if (isset($data['current_question']) && $data['current_question'] != null) : ?>
                 <div class="page-header form-group">
                     <label for="InputQuestion">Введите вопрос:</label>

@@ -90,23 +90,23 @@ class TestController extends Controller
             // get results
             $test_result = Tests::evaluate($user_answers, $test_id);
 
-            // save in history
-            $history = new History();
-            $history->user_id = Auth::getUserId();
-            $history->test_id = $test_id;
-            $history->language_id = Tests::find_by_id($test_id)->language_id;
-            $history->question_count = $test_result['count'];
-            $history->archive_answers = serialize($user_answers);
-            $history->test_time = $test_time;
-            $history->max_mark = $test_result['max_mark'];
-            $history->mark = $test_result['mark'];
-            $history->is_passed = 0;
-            if ( (($history->mark/$history->max_mark) *100) >= 80) {
-                $history->is_passed = 1;
+            // save in statistics
+            $statistics = new Statistics();
+            $statistics->user_id = Auth::getUserId();
+            $statistics->test_id = $test_id;
+            $statistics->language_id = Tests::find_by_id($test_id)->language_id;
+            $statistics->question_count = $test_result['count'];
+            $statistics->archive_answers = serialize($user_answers);
+            $statistics->test_time = $test_time;
+            $statistics->max_mark = $test_result['max_mark'];
+            $statistics->mark = $test_result['mark'];
+            $statistics->is_passed = 0;
+            if ( (($statistics->mark/$statistics->max_mark) *100) >= 80) {
+                $statistics->is_passed = 1;
             }
-            $test_result['is_passed'] = $history->is_passed;
+            $test_result['is_passed'] = $statistics->is_passed;
 
-//          $history->save();
+            $statistics->save();
             Session::saveData('result', $test_result);
             Router::redirect('test/result');
             exit;

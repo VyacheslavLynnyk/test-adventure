@@ -30,14 +30,24 @@ class ManagerController extends Controller
     {
         $this->app_test_menu();
 
+        $params = App::getRouter()->getParams();
+        if (sizeof($params) >= 1 && isset($params[0])) {
+            $test_id = (int) $params[0];
+            Session::saveData('test_id', $test_id);
+
+        }
+
         // Save from POST to DB Language and Test (test name)
         if (isset($_POST['save_test']) && $_POST['save_test'] == 'save') {
-            if (($_POST['set_language'] != null || $_POST['add_language'] != null) && $_POST['test_name'] != null) {
+            $set_language = (isset($_POST['set_language'])) ? htmlentities(trim($_POST['set_language'])) : null;
+            $add_language = (isset($_POST['add_language'])) ? htmlentities(trim($_POST['add_language'])) : null;
+            $test_name = (isset($_POST['test_name'])) ? htmlentities(trim($_POST['test_name'])) : null;
+            if (($set_language != null || $add_language != null) && $test_name != null) {
 
-                if ($_POST['add_language'] != null) {
+                if ($add_language != null) {
                     // Save into Languages
                     $languageModel = new Languages();
-                    $languageModel->language = htmlspecialchars_decode(trim($_POST['add_language']));
+                    $languageModel->language = $add_language;
 
                     if ($languageModel->save() == false) {
                         Session::setFlash('Ошибка при создании теста!');
@@ -47,7 +57,7 @@ class ManagerController extends Controller
                 // Save into Tests
                 $testModel = new Tests();
                 $testModel->test = htmlspecialchars_decode(trim($_POST['test_name']));
-                $testModel->language_id = isset($languageModel->id) ? $languageModel->id : (int)$_POST['set_language'];
+                $testModel->language_id = isset($languageModel->id) ? $languageModel->id : (int) $set_language;
 
                 if ($testModel->save() == false) {
                     Session::setFlash('Ошибка при создании теста!');
@@ -74,8 +84,10 @@ class ManagerController extends Controller
                 $this->app_save_test($test_id, $answers, $answers_true, $question);
             }
         } else {
-            Session::setFlash('Fill up all needed fields');
-            Router::redirect('admin/manager/index');
+            if (!isset($test_id)) {
+                Session::setFlash('Fill up all needed fields');
+                Router::redirect('admin/manager/index');
+            }
         }
     }
 
@@ -117,38 +129,47 @@ class ManagerController extends Controller
         $this->app_test_menu();
     }
 
-    public function admin_delete_test()
+
+
+    public function admin_delete_test($array = null)
     {
         $params = App::getRouter()->getParams();
         if (sizeof($params) == 1 ) {
-            if (isset($params[0]) && is_numeric($params[0])) {
-                $test = Tests::find_by_id($params[0]);
-                $test->delete();
+            if (!isset($params[0]) || !is_numeric($params[0])) {
+                Router::redirect('admin/manager/index');
+            }
+            $test_id = (int) $params[0];
+            if (Manager::remove_test($test_id)) {
+                Session::setFlash('Test removed seccessfully');
+            } else {
+                Session::setFlash('Test caught an error in the removing process');
             }
         } elseif (sizeof($params) >= 2 ) {
             if (isset($params[0]) && is_numeric($params[0]) &&
                 isset($params[1]) && is_numeric($params[1])) {
                 //remove answers
-                $answerModelArr = Answers::find_all_by_question_id($params[1]);
-                foreach ($answerModelArr as $answerModel) {
-                    $answerModel->delete();
+                 if(Manager::remove_question($params[1])) {
+                     Session::setFlash('Question removed seccessfully');
+                } else {
+                    Session::setFlash('Question caught an error in the removing process');
                 }
-                //remove questions
-                $question = Questions::find_by_id($params[1]);
-                $question->delete();
             }
         }
         Router::redirect('admin/manager/index');
     }
 
-    public function admin_delete_language()
+    public function admin_delete_language($array = null)
     {
         $params = App::getRouter()->getParams();
         if (sizeof($params) >= 1 ) {
-            if (isset($params[0]) && is_numeric($params[0])
-                && is_numeric($params[0]) && is_numeric($params[0])) {
-                $language = Languages::find_by_id($params[0]);
-                $language->delete();
+            if (isset($params[0]) && is_numeric($params[0])) {
+
+                $language_id = (int) $params[0];
+                if (Manager::remove_language($language_id)) {
+                    Session::setFlash('Language removed seccessfully');
+                } else {
+                    Session::setFlash('Language caught an error in the removing process');
+                }
             }
         }
         Router::redirect('admin/manager/index');

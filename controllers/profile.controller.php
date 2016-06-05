@@ -24,12 +24,12 @@ class ProfileController extends Controller
 
             $id = $user->id;
             // Get crop and save our avatar image
-            $save_path = ROOT . '/webroot/images/avatars/'.$id.str_replace('@','_', $login);
-            if ($avatar = Image::catch('avatar', $save_path)) {
+            $save_path = ROOT . '/webroot/images/avatars/'.md5($id);
+            if ($avatar = Images::file_catch('avatar', $save_path)) {
                 $avatar_ext = pathinfo($avatar, PATHINFO_EXTENSION);
-                $save_path .= rand(10, 50) . '.' . $avatar_ext;
-                $save_url = REL_URL . str_replace(ROOT, '', $save_path);
-                Image::crop_to_fit($avatar, $save_path, 400, 400);
+                $save_path .= '.' . $avatar_ext;
+                $save_url =  str_replace(ROOT.'/webroot', '', $save_path);
+                Images::crop_to_fit($avatar, $save_path);
                 $user->photo_path = $save_url;
             }
             $user->save();

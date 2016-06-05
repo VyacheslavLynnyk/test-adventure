@@ -9,7 +9,8 @@
                 <div class="col-sm-12 col-md-6">
                     <div class="avatar-preview">
                         <img id="avatar"
-                             src="<?= isset($this->data['avatar']) ? $this->data['avatar'] : REL_URL.'/images/avatars/avatar.png' ?>" alt="My Avatar" />
+                             src="<?= isset($this->data['avatar']) ? REL_URL.$this->data['avatar'] : REL_URL.'/images/avatars/avatar.png' ?>"
+                             alt="My Avatar" />
                     </div>
                 </div>
 

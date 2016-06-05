@@ -1,0 +1,27 @@
+<div class="container">
+    <h1 class="text-center">My Statistics</h1>
+
+    <table id="result-table" class="table-striped table-bordered table-hover text-center">
+        <tr class="bg-info">
+            <th>Language name</th>
+            <th>Test name</th>
+            <th>Questions count</th>
+            <th>Mark / Max mark</th>
+            <th>Test time</th>
+            <th>Passed</th>
+            <th>Date</th>
+        </tr>
+        <?php foreach ($this->data['statistics'] as $statistic) : ?>
+        <tr>
+            <td><?= Languages::find_by_id($statistic->language_id)->language ?></td>
+            <td><?= Tests::find_by_id($statistic->test_id)->test ?></td>
+            <td><?= $statistic->question_count ?></td>
+            <td><?= $statistic->mark.'/'.$statistic->max_mark ?></td>
+            <td><?= $statistic->test_time?></td>
+            <td><?= ($statistic->is_passed == 1) ? 'V' : 'X' ?></td>
+            <td><?= $statistic->pass_date ?></td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+
+</div>
