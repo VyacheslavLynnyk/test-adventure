@@ -57,7 +57,7 @@
         </div>
 <!--        QUESTION END-->
 
-        <div>
+        <div class="finish" style="display: none">
             <input type="text" hidden value="<?= $this->data['startTime'] ?>" name="timer">
             <input type="text" hidden name="end_test" value="end_test">
             <input type="submit" class="btn btn-info btn-lg pull-right"  value="Закончить">
@@ -70,7 +70,7 @@
 <script>
     /*  ---PAGINATION---  */
 
-    var lastPage = <?= $question_counter ?>;
+    var lastPage = <?= $question_counter - 1 ?>;
     var numbers = $('.numbers');
     var page = window.location.hash;
     page = page.substr(1);
@@ -79,11 +79,18 @@
         window.location.hash = '1';
     }
 
+
     $('#pagination-prev').parent().after('<li class="pag-hider"><a>...</a></li>');
 //    numbers.hide();
     $('.pag-hider').hide();
     paginationStart(lastPage);
 
+    function checkFinish(lastPage)
+    {
+        if ((window.location.hash).substr(1) == lastPage) {
+            $('.finish').fadeIn(1000);
+        }
+    };
 
     function paginationStart(lastPage)
     {
@@ -94,6 +101,7 @@
         $("#pagination-bar li").removeClass('active');
         $("#pagination-bar a[href='#"+page+"']").parent().addClass('active');
         $('.page-number-' + page).fadeIn(500);
+        checkFinish(lastPage);
     };
 
     $(window).bind('hashchange', function() {
