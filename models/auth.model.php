@@ -64,7 +64,7 @@ class Auth extends Model
 
     public static function checkLoginActive()
     {
-        if (isset($_SESSION['auth']) and  $_SESSION['auth'] === 'set') {
+        if (isset($_SESSION['auth']) and  $_SESSION['auth'] === 'set' and isset($_COOKIE['user'])) {
             return true;
         }
 
@@ -88,8 +88,8 @@ class Auth extends Model
     {
         self::$user = !isset(self::$user) ? Users::find_by_login_mail($login) : self::$user;
         $_SESSION['auth'] = 'set';
-        setcookie("user", $login, time() + 84000, "/" );
-        setcookie("userId",self::calcId($login) , time() + 84000, "/" );
+        setcookie("user", $login, time() + 8400, "/" );
+        setcookie("userId",self::calcId($login) , time() + 8400, "/" );
     }
 
 

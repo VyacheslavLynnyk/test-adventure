@@ -1,7 +1,7 @@
 <div class="container">
     <h1 class="text-center">My Statistics</h1>
 
-    <table id="result-table" class="table-striped table-bordered table-hover text-center">
+    <table id="result-table" class="table-bordered table-hover text-center">
         <tr class="bg-info">
             <th>Language name</th>
             <th>Test name</th>
@@ -21,7 +21,7 @@
             <td <?= ($statistic->is_passed == 1) ? ' class="success-transp" ' : ' class="danger-transp" '?> >
                 <?= ($statistic->is_passed == 1) ? 'V' : 'X' ?>
             </td>
-            <td><?= $statistic->pass_date ?></td>
+            <td><?= date('Y-m-d D H:i:s', strtotime($statistic->pass_date)) ?></td>
         </tr>
         <?php endforeach; ?>
     </table>

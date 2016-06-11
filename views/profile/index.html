@@ -1,20 +1,21 @@
 
     <div class="container">
-        <h1 class="text-center">My Profile</h1>
+        <h1 class="text-center">Мой профиль</h1>
         <form role="form" action="<?= REL_URL . '/profile/index' ?>"
-              class="form-horizontal create-profile" method="post" enctype="multipart/form-data" >
+              class="form-horizontal" method="post" enctype="multipart/form-data" >
             <input type="hidden" name="MAX_FILE_SIZE" value="15000000" />
-            <div class="row profile-field">
+            <div class="row white-transp jumbotron">
 
-                <div class="col-sm-12 col-md-6">
-                    <div class="avatar-preview">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="avatar-preview text-center">
                         <img id="avatar"
                              src="<?= isset($this->data['avatar']) ? REL_URL.$this->data['avatar'] : REL_URL.'/images/avatars/avatar.png' ?>"
                              alt="My Avatar" />
                     </div>
                 </div>
 
-                <div class="col-sm-12 col-md-6">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                    <p class="sidebar-module"></p>
                     <div class="form-group">
                         <label for="form--login" class="col-sm-4 control-label">Логин:</label>
                         <div class="col-sm-8">

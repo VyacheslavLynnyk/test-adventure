@@ -73,7 +73,7 @@ class TestController extends Controller
             if (!is_numeric($_POST['test_id'])) {
                 Router::redirect(test/index);
             }
-            $user_answers = (is_array($_POST['user_answers'])) ? $_POST['user_answers'] : [] ;
+            $user_answers = (isset($_POST['user_answers']) && is_array($_POST['user_answers'])) ? $_POST['user_answers'] : [] ;
             $test_id = (int) $_POST['test_id'];
         //Just test
             if (isset($_POST['timer']) && is_numeric($_POST['timer'])) {
@@ -111,6 +111,8 @@ class TestController extends Controller
             Router::redirect('test/result');
             exit;
         }
+        Router::redirect('test/index');
+        exit;
     }
 
     public function result()

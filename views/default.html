@@ -23,7 +23,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="<?=REL_URL?>/js/ie10-viewport-bug-workaround.js"></script>
     <script src="<?=REL_URL?>/js/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
             integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
@@ -48,11 +48,14 @@
     <?php if (Session::hasFlash()) : ?>
         <div class="alert-window"> <?= Session::flash() ?> </div>
     <?php endif ?>
-
-    <?=$data['content']?>
-
-
-<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
-
+    <div class="for-static-footer">
+        <?=$data['content']?>
+    </div>
+    <footer class="blog-masthead">
+            <nav>
+                <p>© 2016 created by <a href="http://vlynnyk.ho.ua">Vyacheslav Lynnyk</a> |
+                source code on <a href="github/VyacheslavLynnyk">GitHub</a></p>
+            </nav>
+    </footer>
 </body>
 </html>

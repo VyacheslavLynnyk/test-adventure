@@ -27,5 +27,5 @@ foreach ($data['languages'] as $languages) {
 
 
 <script>
-    var testsTree = [ <?= $data_tree ?> ];
+    var testsTree = [ <?= ($data_tree) ? $data_tree : '' ?> ];
 </script>

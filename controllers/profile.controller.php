@@ -29,6 +29,8 @@ class ProfileController extends Controller
                 $avatar_ext = pathinfo($avatar, PATHINFO_EXTENSION);
                 $save_path .= '.' . $avatar_ext;
                 $save_url =  str_replace(ROOT.'/webroot', '', $save_path);
+                Images::$expected_height = 400;
+                Images::$expected_width = 400;
                 Images::crop_to_fit($avatar, $save_path);
                 $user->photo_path = $save_url;
             }

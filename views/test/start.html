@@ -1,17 +1,17 @@
 <div class="container white-transp page-header">
 
-    <div id="pagination-bar" class="text-center">
-        <ul class="pagination pagination-lg">
-<!--            <li><a href="#1" class="active"> Первая </a></li>-->
-            <li><a id="pagination-prev"> << </a></li>
-            <?php $question_counter = sizeof($this->data['dataTest']) - 1?>
-            <?php for ($pag_page = 1 ; $pag_page <= $question_counter ; $pag_page++ ) : ?>
-                <li class="numbers"><a href="#<?= $pag_page ?>"><?= $pag_page ?></a></li>
-            <?php endfor; ?>
-            </li>
-            <li><a id="pagination-next"> >> </a></li>
-<!--            <li><a href="#--><?//= $question_counter ?><!--">Последняя</a></li>-->
-        </ul>
+        <div id="pagination-bar" class="text-right">
+            <ul class="pagination">
+    <!--            <li><a href="#1" class="active"> Первая </a></li>-->
+                <li><a class="pagination-prev"> << </a></li>
+                <?php $question_counter = sizeof($this->data['dataTest']) - 1?>
+                <?php for ($pag_page = 1 ; $pag_page <= $question_counter ; $pag_page++ ) : ?>
+                    <li class="numbers"><a href="#<?= $pag_page ?>"><?= $pag_page ?></a></li>
+                <?php endfor; ?>
+                </li>
+                <li><a class="pagination-next"> >> </a></li>
+
+            </ul>
     </div>
 
     <form role="form" action="<?= REL_URL . '/test/end'?>" method="post">
@@ -26,12 +26,12 @@
                 <?php endif; ?>
 
     <!--        QUESTION START -->
-                <div class="page-number-<?= $question_counter?> form-group page-header" style="display: none">
+                <div class="page-number-<?= $question_counter?> form-group" style="display: none">
                     <div>
                         <h3>Вопрос:</h3>
-                            <pre name="question"><?=
+                            <div name="question" class="question"><?=
                                         $question_data['question'];
-                            ?></pre>
+                            ?></div>
                     </div>
         <!--        <div class="form-group">-->
         <!--            <label for="InputFile">Загрузка картинки:</label>-->
@@ -39,29 +39,40 @@
         <!--        </div>-->
 
                     <h3>Ответы:</h3>
-                    <div>
-                        <?php  foreach ($question_data as $answer_num => $answer) : ?>
-                        <?php if (!is_numeric($answer_num)) continue; ?>
-                            <div class="checkbox">
-                                <label>
-                                    <input class="big-checkbox" type="checkbox"
-                                           name="user_answers[<?= $question_num ?>][<?= $answer_num ?>]" value="1">
-                                    <?= $answer; ?>
-                                </label>
+                    <div class="container">
+                            <?php  foreach ($question_data as $answer_num => $answer) : ?>
+                            <?php if (!is_numeric($answer_num)) continue; ?>
+                            <div class="checkbox-middle">
+                                    <div class="inline">
+                                        <input id="answer-<?= $answer_num ?>" type="checkbox"
+                                               name="user_answers[<?= $question_num ?>][<?= $answer_num ?>]" value="1">
+                                    </div>
+                                    <div class="inline">
+                                        <label for="answer-<?= $answer_num ?>">
+                                            <pre><?= $answer; ?></pre>
+                                        </label>
+                                    </div>
                             </div>
-                        <?php endforeach ?>
+                            <?php endforeach ?>
+                    <?php  ++$question_counter ?>
                     </div>
-               <?php  ++$question_counter ?>
                 </div>
             <?php endforeach ?>
         </div>
-<!--        QUESTION END-->
-
-        <div class="finish" style="display: none">
-            <input type="text" hidden value="<?= $this->data['startTime'] ?>" name="timer">
-            <input type="text" hidden name="end_test" value="end_test">
-            <input type="submit" class="btn btn-info btn-lg pull-right"  value="Закончить">
+        <div class="timer">
+            00:20:<span class="min">35</span>
         </div>
+<!--        QUESTION END-->
+<nav class="sidebar">
+
+    <button class="btn btn-lg btn-primary pagination-next" type="button">
+        Следущий
+    </button>
+    <input type="text" hidden value="<?= $this->data['startTime'] ?>" name="timer">
+    <input type="text" hidden name="end_test" value="end_test">
+    <input type="submit" class="btn btn-danger btn-lg pull-right finish" style="display: none"  value="Закончить">
+</nav>
+
 
     </form>
 
@@ -80,7 +91,7 @@
     }
 
 
-    $('#pagination-prev').parent().after('<li class="pag-hider"><a>...</a></li>');
+    $('.pagination-prev').parent().after('<li class="pag-hider"><a>...</a></li>');
 //    numbers.hide();
     $('.pag-hider').hide();
     paginationStart(lastPage);
@@ -112,7 +123,7 @@
         $(this).hide();
         numbers.fadeIn(1000);
     });
-    $('#pagination-prev').on('click', function() {
+    $('.pagination-prev').on('click', function() {
         var page = window.location.hash;
         page = page.substr(1);
         if ( +page > 1 ) {
@@ -120,7 +131,7 @@
 
         }
     });
-    $('#pagination-next').on('click', function() {
+    $('.pagination-next').on('click', function() {
         var page = window.location.hash;
         page = page.substr(1);
         if ( +page < lastPage ) {

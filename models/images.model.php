@@ -43,8 +43,8 @@ class Images extends Model
         /*
          * Add file validation code here
          */
-        $destSizeW = self::$width;
-        $destSizeH = self::$height;
+        $destSizeW = self::$expected_width;
+        $destSizeH = self::$expected_height;
 
         list($sourceWidth, $sourceHeight, $source_type) = getimagesize($sourcePath);
 

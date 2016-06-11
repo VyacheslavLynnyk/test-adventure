@@ -1,3 +1,4 @@
+<script src=" <?= REL_URL . '/ckeditor/' ?>ckeditor.js"></script>
 <div class="container">
     <h1 class="text-center">Test Manager</h1>
     <div class="row">
@@ -46,13 +47,16 @@
                     <a href="<?= REL_URL . '/admin/manager/save-test/' . $data['params'] ?>" type="submit" class="btn btn-info btn-lg pull-left">Create new question</a>
                 </div>
 
-<!--EDIT QUESTION ANSWERS-->
+<!--EDIT QUESTION and ANSWERS-->
             <?php if (isset($data['current_question']) && $data['current_question'] != null) : ?>
                 <div class="page-header form-group">
                     <label for="InputQuestion">Введите вопрос:</label>
                     <textarea class="form-control" id="InputQuestion" name="question"><?=
                         $data['current_question']->question;
                     ?></textarea>
+                    <script>
+                        CKEDITOR.replace( 'question' );
+                    </script>
                 </div>
                 <div class="form-group">
                     <label for="InputFile">Загрузка картинки:</label>
