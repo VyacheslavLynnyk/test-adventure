@@ -1,5 +1,5 @@
 <div class="container">
-    <h1 class="text-center">Test Manager</h1>
+    <h1 class="text-center">Тест Менеджер</h1>
     <div class="row">
         <div class="col-md-3" id="tests-menu">
             <?php $user_uri_language = '/admin/manager/edit-language/'; //links for left panel?>
@@ -7,25 +7,40 @@
             <?php include VIEW_PATH . DS . 'test_panel.html' ?>
         </div>
 
-        <div class="col-md-7">
-            <form action="<?= REL_URL . '/admin/manager/save-test' ?>" method="POST">
-                <p>Choose test language:
-                    <select name="set_language">
-                        <option value="" selected>--- not set --- </option>
-                        <?php foreach ($data['languages'] as $languages) : ?>
-                            <option value="<?= $languages->id ?>"> <?= $languages->language ?> </option>
-                        <?php endforeach ?>
-                    </select>
-<!--                  // TODO  make checkbox which switchs between select and input boxes-->
-                    or add new <input type="text" name="add_language">
-                </p>
-                <p>Write test name <input type="text" name="test_name" required = "required"></p>
-                <div>
+        <div class="col-md-9">
+            <form class="jumbotron-blue" action="<?= REL_URL . '/admin/manager/save-test' ?>" method="POST">
+                <div class="form-group">
+                    <label for="language-select">Выберите язык теста : </label>
+                        <select class="form-control" id="language-select" name="set_language">
+                            <option value="" selected>--- не выбран --- </option>
+                            <?php foreach ($data['languages'] as $languages) : ?>
+                                <option value="<?= $languages->id ?>"> <?= $languages->language ?> </option>
+                            <?php endforeach ?>
+                        </select>
+                </div>
+                <div class="form-group">
+                    <label for="language-add"> или создайте новый : </label>
+                    <input id="language-add" class="form-control" type="text" name="add_language">
+                </div>
+                <div class="form-group">
+                    <label for="">Задайте имя теста : </label>
+                    <input class="form-control" type="text" name="test_name" required="required"></p>
+                </div>
+                <div class="text-center">
                     <input type="text" hidden name="save_test" value="save">
-                    <input type="submit" class="btn btn-info btn-lg pull-left">Create</input>
+                    <button type="submit" class="btn btn-info btn-lg">Создать тест</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
+<script>
+    $('#language-select').on('change',function(){
+        if ($(this).val() != '') {
+            $('#language-add').parent().fadeOut(1000);
+        } else {
+            $('#language-add').parent().fadeIn(500);
+        }
+    });
+</script>

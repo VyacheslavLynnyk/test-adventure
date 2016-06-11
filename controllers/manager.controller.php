@@ -51,6 +51,8 @@ class ManagerController extends Controller
 
                     if ($languageModel->save() == false) {
                         Session::setFlash('Ошибка при создании теста!');
+                        Router::redirect('admin/manager/save-test');
+                        exit();
                     }
                 }
 
@@ -68,7 +70,7 @@ class ManagerController extends Controller
                     Session::saveData('test_id', $testModel->id);
                 }
             } else {
-                Session::setFlash('Fill up all needed fields');
+                Session::setFlash('Заполните все поля');
                 Router::redirect('admin/manager/index');
             }
 
@@ -85,7 +87,7 @@ class ManagerController extends Controller
             }
         } else {
             if (!isset($test_id)) {
-                Session::setFlash('Fill up all needed fields');
+                Session::setFlash('Заполните все поля');
                 Router::redirect('admin/manager/index');
             }
         }
@@ -211,6 +213,8 @@ class ManagerController extends Controller
             $answerModel->question_id = $questionModel->id;
             $answerModel->save();
         }
+        Router::redirect('admin/manager/save-test');
+        exit();
     }
 
 

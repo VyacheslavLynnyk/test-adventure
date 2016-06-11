@@ -37,16 +37,19 @@
     <div class="blog-masthead">
         <div class="container">
             <nav class="blog-nav">
-                <?=Html::a_is_active('test', 'Tests',['blog-nav-item'])?>
-                <?=Html::a_is_active('profile', 'Profile',['blog-nav-item'])?>
-                <?=Html::a_is_active('statistics', 'Statistics',['blog-nav-item'])?>
+                <?php if (Auth::getRole() == 'admin') : ?>
+                    <?=Html::a_is_active('admin/manager', 'Режим Админа',['blog-nav-item'])?>
+                <?php endif; ?>
+                <?=Html::a_is_active('test', 'Тесты',['blog-nav-item'])?>
+                <?=Html::a_is_active('profile', 'Профиль',['blog-nav-item'])?>
+                <?=Html::a_is_active('statistics', 'Статистика',['blog-nav-item'])?>
                 <?=Html::a_is_active('auth/logout', Auth::getLogin().' (Выйти)',['blog-nav-item pull-right'])?>
             </nav>
         </div>
     </div>
 
     <?php if (Session::hasFlash()) : ?>
-        <div class="alert-window"> <?= Session::flash() ?> </div>
+        <div class="alert-window"> <?php Session::flash() ?> </div>
     <?php endif ?>
     <div class="for-static-footer">
         <?=$data['content']?>

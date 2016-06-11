@@ -14,7 +14,7 @@
             </ul>
     </div>
 
-    <form role="form" action="<?= REL_URL . '/test/end'?>" method="post">
+    <form id='testForm' role="form" action="<?= REL_URL . '/test/end'?>" method="post">
         <?php $question_counter = 1; ?>
         <div id="content-pagination">
             <?php foreach ($this->data['dataTest'] as $question_num => $question_data) : ?>
@@ -59,8 +59,10 @@
                 </div>
             <?php endforeach ?>
         </div>
-        <div class="timer">
-            00:20:<span class="min">35</span>
+        <div id="taskTimer" class="timer" style="display: none">
+            <span></span> :
+            <span></span> :
+            <span class="min"></span>
         </div>
 <!--        QUESTION END-->
 <nav class="sidebar">
@@ -139,5 +141,28 @@
         }
     });
     /*  ---PAGINATION---  END*/
+//    TIMER
+    function startTimer(lastPage, minsOnTask = 1) {
+        var timerTime = new Date(0,0,0,0,0,0);
+        timerTime.setMinutes(lastPage * minsOnTask);
+        $('#taskTimer').fadeIn(3000);
 
+        setInterval(function() {
+                timerTime.setSeconds(timerTime.getSeconds() - 1);
+                if (timerTime.getHours() == 0 && timerTime.getMinutes() == 0 && timerTime.getSeconds() == 0) {
+                    $('#testForm').submit();
+                }
+                setMyTimer(timerTime);
+            }, 1000, timerTime);
+
+    };
+
+    function setMyTimer(timerTime) {
+        var timerObj = $('#taskTimer');
+        timerObj.children()[0].innerText = timerTime.getHours();
+        timerObj.children()[1].innerText = timerTime.getMinutes();
+        timerObj.children()[2].innerText = timerTime.getSeconds();
+    };
+
+    startTimer(lastPage);
 </script>

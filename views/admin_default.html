@@ -22,25 +22,32 @@
 </head>
 <body class="bg--3">
 
-    <div class="blog-masthead">
+    <div class="blog-masthead admin">
         <div class="container">
             <nav class="blog-nav">
-                <?=Html::a_is_active('admin/test', 'Tests',['blog-nav-item'])?>
-                <?=Html::a_is_active('admin/profile', 'Profile',['blog-nav-item'])?>
-                <?=Html::a_is_active('statistics', 'Statistics',['blog-nav-item'])?>
-                <?=Html::a_is_active('admin/manager', 'Test Manager',['blog-nav-item'])?>
+                <?=Html::a_is_active('test', 'Режим Пользователя',['blog-nav-item'])?>
+                <?=Html::a_is_active('admin/profiles', 'Профили',['blog-nav-item'])?>
+                <?=Html::a_is_active('admin/statistics', 'Статистика',['blog-nav-item'])?>
+                <?=Html::a_is_active('admin/manager', 'Тест Менеджер',['blog-nav-item'])?>
                 <?=Html::a_is_active('auth/logout', Auth::getLogin().' (Выйти)',['blog-nav-item pull-right'])?>
             </nav>
         </div>
     </div>
-    
-    <?php if (Session::getData('alert') != null) : ?>
-        <div class="alert-window">
-            <h1><?php echo Session::getData('alert') ?></h1>
-        </div>
+
+    <?php if (Session::hasFlash()) : ?>
+        <script>
+            alert( '1' );
+        </script>
+        <div class="alert-window"> <?php Session::flash() ?> </div>
     <?php endif ?>
 
     <?=$data['content']?>
 
+    <footer class="admin">
+        <nav>
+            <p>© 2016 created by <a href="http://vlynnyk.ho.ua" target="_blank">Vyacheslav Lynnyk</a> |
+                source code on <a href="https://github.com/VyacheslavLynnyk/test-adventure" target="_blank">GitHub</a></p>
+        </nav>
+    </footer>
 </body>
 </html>

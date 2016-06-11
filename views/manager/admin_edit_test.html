@@ -1,6 +1,6 @@
 <script src=" <?= REL_URL . '/ckeditor/' ?>ckeditor.js"></script>
 <div class="container">
-    <h1 class="text-center">Test Manager</h1>
+    <h1 class="text-center">Тест Менеджер</h1>
     <div class="row">
         <div class="col-md-3" id="tests-menu">
             <?php $user_uri_language = '/admin/manager/edit-language/'; //links for left panel?>
@@ -8,8 +8,8 @@
             <?php include VIEW_PATH . DS . 'test_panel.html' ?>
         </div>
 <!-- EDIT Test name-->
-        <div class="col-md-7">
-            <form role="form" action="<?= REL_URL . '/admin/manager/edit-test/'.$data['params'] ?>" method="POST">
+        <div class="col-md-9">
+            <form class="jumbotron-blue" role="form" action="<?= REL_URL . '/admin/manager/edit-test/'.$data['params'] ?>" method="POST">
                 <div class="form-inline form-horizontal">
                     <div class="form-group">
                         <label for="test-name">Имя теста:</label>
@@ -20,7 +20,7 @@
                         <input type="text" hidden name="save_test" value="save">
                         <input type="submit" class="btn btn-info" value="Сохранить">
                         <a class="btn btn-danger" href="<?= REL_URL . '/admin/manager/delete-test/'.$data['params'] ?>">
-                            Удалить
+                            <i class="glyphicon glyphicon-trash"></i>
                         </a>
                     </div>
                 </div>
@@ -28,23 +28,30 @@
 <!-- EDIT QUESTIONS NAME-->
                 <hr>
                 <?php if (isset($data['questions']) && $data['questions'] != null) : ?>
-                <ol class="panel-heading">
-                    <?php foreach ($data['questions'] as $question) : ?>
-                    <li>
-                        <a href="<?= REL_URL . "/admin/manager/edit-test/" . $data['params'] . "/" ?><?= $question->id ?>">
-                            <?= $question->question ?>
-                        </a>
-                        <a class="btn btn-danger"
-                           href="<?= REL_URL . '/admin/manager/delete-test/'.$data['params'] . "/" ?><?= $question->id ?>">
-                            Удалить
-                        </a>
-                    </li>
+                    <div class="row question-list">
+                    <?php foreach ($data['questions'] as $question_num => $question) : ?>
+                        <div class="col-xs-1">
+                            <span><?= ($question_num + 1).'. ' ?></span>
+                        </div>
+                        <div class="col-xs-10">
+                            <a href="<?= REL_URL . "/admin/manager/edit-test/" . $data['params'] . "/" ?><?= $question->id ?>">
+                                <?=  mb_substr($question->question, 0, 55).'...' ?>
+                            </a>
+                        </div>
+                        <div class="col-xs-1">
+                            <a class="btn btn-danger"
+                               href="<?= REL_URL . '/admin/manager/delete-test/'.$data['params'] . "/" ?><?= $question->id ?>">
+                                <i class="glyphicon glyphicon-trash"></i>
+                            </a>
+                        </div>
                     <?php endforeach ?>
+                    </div>
                 </ol>
                 <?php endif ?>
                 <div>
                     <input type="text" hidden name="edit_test" value="save">
-                    <a href="<?= REL_URL . '/admin/manager/save-test/' . $data['params'] ?>" type="submit" class="btn btn-info btn-lg pull-left">Create new question</a>
+                    <a href="<?= REL_URL . '/admin/manager/save-test/' . $data['params'] ?>"
+                       type="submit" class="btn btn-success pull-left">Добавить вопрос</a>
                 </div>
 
 <!--EDIT QUESTION and ANSWERS-->

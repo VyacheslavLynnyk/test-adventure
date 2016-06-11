@@ -6,13 +6,8 @@
             <?php $user_uri_test = '/admin/manager/edit-test/'; ?>
             <?php include VIEW_PATH . DS . 'test_panel.html' ?>
         </div>
-
-        <div var_dump>
-            <?php print_r($_POST);?>
-        </div>
-
-        <div class="col-md-7">
-            <form action="<?= REL_URL . '/admin/manager/save-test' ?>" method="POST">
+        <div class="col-md-9">
+            <form class="jumbotron-blue" action="<?= REL_URL . '/admin/manager/save-test' ?>" method="POST">
                 <div class="form-group">
                     <label for="InputQuestion">Введите вопрос:</label>
                     <textarea class="form-control" id="InputQuestion" name="question"></textarea>

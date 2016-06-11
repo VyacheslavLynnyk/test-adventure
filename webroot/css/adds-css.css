@@ -55,6 +55,10 @@ h1, h2, h3, h4 {
     background: rgba(52, 55, 172, 0.62);
 }
 
+.admin {
+    background: rgba(172, 80, 89, 0.62);
+}
+
 #registration  {
     display: block;
     text-align: center;
@@ -188,7 +192,7 @@ h1, h2, h3, h4 {
 }
 .bg--2 {
     background: #000;
-    background-image: url("../images/backgrounds/bg_2.jpg");
+    background-image: url("../images/backgrounds/bg_2_.jpg");
     background-attachment: fixed;
 }
 .bg--3 {
@@ -205,25 +209,39 @@ h1, h2, h3, h4 {
 
 #content-pagination .question, #content-pagination .question p{
     color: #122b40;
-    font: 1.2em Georgia, "Times New Roman";
+    font: 1.3em Georgia, "Times New Roman";
 }
 
 #content-pagination  pre {
-    font: 1em Georgia, "Times New Roman";
+    font: 1.2em Georgia, "Times New Roman";
 }
 
 .question {
     margin-top:10px;
     margin-bottom:10px;
 }
+
+.question-list div {
+    height: 40px;
+
+}
+.question-list div a, .question-list div span {
+    color: #3a2842;
+    text-shadow: 1px 1px 5px grey;
+}
+.question-list a i {
+    color: white;
+}
+.question-list div p {
+    display: inline;
+}
+
 .checkbox-middle {
     color: #122b40;
     width: calc(256px + 20vw);
     background-color: rgba(128,255,0, 0.4);
-    border-radius: 3px;
     padding-left: 10px;
-    margin: auto;
-    margin-top: 3px;
+    margin: 13px auto auto auto;
     border-radius: 10px;
 }
 
@@ -272,5 +290,5 @@ footer > nav a{
 }
 
 .timer .min {
-    font-size: 1em;
+    font-size: 0.6em;
 }
