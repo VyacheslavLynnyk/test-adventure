@@ -165,4 +165,12 @@
     };
 
     startTimer(lastPage);
+// TIMER END
+
+    window.onbeforeunload = function(){
+        $('#testForm').submit();
+    }
+
+
+
 </script>

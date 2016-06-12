@@ -16,6 +16,7 @@ class TestController extends Controller
         $this->data['languages'] = Languages::find('all');
         $this->data['tests'] = Tests::find('all');
     }
+    
 
     public function index()
     {
@@ -111,7 +112,7 @@ class TestController extends Controller
             Router::redirect('test/result');
             exit;
         }
-        Router::redirect('test/index');
+        //Router::redirect('test/index');
         exit;
     }
 
