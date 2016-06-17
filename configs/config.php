@@ -27,3 +27,8 @@ ActiveRecord\Config::initialize(function ($cfg) {
     $cfg->set_default_connection('development');
 
 });
+
+// Date localization conf
+date_default_timezone_set('Europe/Kiev');
+
+Config::set('attempt_in_day', 2);

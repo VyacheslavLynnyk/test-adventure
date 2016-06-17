@@ -26,7 +26,7 @@
         <div class="container">
             <nav class="blog-nav">
                 <?=Html::a_is_active('test', 'Режим Пользователя',['blog-nav-item'])?>
-                <?=Html::a_is_active('admin/profiles', 'Профили',['blog-nav-item'])?>
+                <?=Html::a_is_active('admin/profile', 'Профили',['blog-nav-item'])?>
                 <?=Html::a_is_active('admin/statistics', 'Статистика',['blog-nav-item'])?>
                 <?=Html::a_is_active('admin/manager', 'Тест Менеджер',['blog-nav-item'])?>
                 <?=Html::a_is_active('auth/logout', Auth::getLogin().' (Выйти)',['blog-nav-item pull-right'])?>
@@ -40,9 +40,9 @@
         </script>
         <div class="alert-window"> <?php Session::flash() ?> </div>
     <?php endif ?>
-
-    <?=$data['content']?>
-
+    <div class="for-static-footer">
+        <?=$data['content']?>
+    </div>
     <footer class="admin">
         <nav>
             <p>© 2016 created by <a href="http://vlynnyk.ho.ua" target="_blank">Vyacheslav Lynnyk</a> |

@@ -46,7 +46,18 @@
                 <?=Html::a_is_active('test', 'Тесты',['blog-nav-item'])?>
                 <?=Html::a_is_active('profile', 'Профиль',['blog-nav-item'])?>
                 <?=Html::a_is_active('statistics', 'Статистика',['blog-nav-item'])?>
-                <?=Html::a_is_active('auth/logout', Auth::getLogin().' (Выйти)',['blog-nav-item pull-right'])?>
+<!--                get avatar-->
+                <div id="login" class="blog-nav-item pull-right">
+
+                    <?php if ($user = Users::find_by_id(Auth::getUserId())) :; ?>
+                        <a id="avatar" href="<?= REL_URL . '/profile' ?>">
+                            <img class="img-rounded" src="<?= REL_URL . $user->photo_path; ?>">
+                        </a>
+                    <?php endif; ?>
+                    <a
+                        href="<?= REL_URL . '/auth/logout' ?>"><?= Auth::getLogin().' (Выйти)' ?>
+                    </a>
+                </div>
             </nav>
         </div>
     </div>

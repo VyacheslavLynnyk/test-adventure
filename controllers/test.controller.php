@@ -16,6 +16,11 @@ class TestController extends Controller
         $this->data['languages'] = Languages::find('all');
         $this->data['tests'] = Tests::find('all');
     }
+
+    public function __destructe()
+    {
+
+    }
     
 
     public function index()
@@ -50,10 +55,43 @@ class TestController extends Controller
         if (!isset($can_start) || $can_start != 'can_start='.$params[0]) {
             Router::redirect('test/language/'.$params[0]);
         }
+        // Check attempts
+        $user_statistic = Statistics::find_by_user_id_and_test_id(Auth::getUserId(), $params[0], ['order' => 'pass_date desc']);
+        if ($user_statistic) {
+            $attempt = $user_statistic->attempts;
+            $pass_date = $user_statistic->pass_date;
+        } else {
+            $attempt = Config::get('attempt_in_day');
+        }
+        if ($attempt <= 0) {
+            $getDate = Date('Y-m-d');
+            $pass_date = date('Y-m-d', strtotime($pass_date));
+            if ($pass_date >= $getDate) {
+                Session::setFlash('У Вас закончились попытки');
+                Router::redirect('test/denied');
+                exit();
+            }
+        }
+        Session::saveData('user_attempts', $attempt - 1);
         // Get Task questions and answers
         $test_data = Tests::getTestData($params[0]);
+        $can_start = Session::saveData('start_test', null);
         $this->data['dataTest'] = $test_data['dataTest'];
         $this->data['startTime'] = microtime('get_as_float');
+
+        $test_id = (int) $params[0];
+
+        $statistics = new Statistics();
+        $statistics->user_id = Auth::getUserId();
+        $statistics->test_id = $test_id;
+        $statistics->language_id = Tests::find_by_id($test_id)->language_id;
+        $statistics->max_mark = '0';
+        $statistics->mark = '0';
+        $statistics->is_passed = 0;
+        $statistics->attempts = Session::getData('user_attempts');
+        $statistics_id = $statistics->save();
+
+        Session::saveData('statistics_id_started', $statistics->id);
     }
 
     public function language()
@@ -92,10 +130,10 @@ class TestController extends Controller
             $test_result = Tests::evaluate($user_answers, $test_id);
 
             // save in statistics
-            $statistics = new Statistics();
-            $statistics->user_id = Auth::getUserId();
-            $statistics->test_id = $test_id;
-            $statistics->language_id = Tests::find_by_id($test_id)->language_id;
+            $statistics_id = Session::getData('statistics_id_started');
+            Session::saveData('statistics_id_started', null);
+
+            $statistics = Statistics::find_by_id($statistics_id);
             $statistics->question_count = $test_result['count'];
             $statistics->archive_answers = serialize($user_answers);
             $statistics->test_time = $test_time;
@@ -104,6 +142,7 @@ class TestController extends Controller
             $statistics->is_passed = 0;
             if ( (($statistics->mark/$statistics->max_mark) *100) >= 80) {
                 $statistics->is_passed = 1;
+                ++$statistics->attempts;
             }
             $test_result['is_passed'] = $statistics->is_passed;
 
@@ -120,8 +159,15 @@ class TestController extends Controller
     {
         if (Session::getData('result')) {
             $this->data['result'] = Session::getData('result');
+            $this->data['attempts'] = Session::getData('user_attempts');
+            Session::saveData('user_attempts', null);
         } else {
             Router::redirect('test/index');
         }
+    }
+
+    public function denied()
+    {
+
     }
 }

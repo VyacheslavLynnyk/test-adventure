@@ -100,4 +100,14 @@ class Auth extends Model
         setcookie("userId", '', 1, "/");
     }
 
+    public static function security() {
+        // Check users role
+        if (self::checkLoginActive() == false) {
+            Router::redirect('auth/index');
+        }
+        if (self::getRole() != 'admin') {
+            throw new Exception('Error 404! Page not found.');
+        }
+    }
+
 }

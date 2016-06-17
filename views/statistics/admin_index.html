@@ -1,8 +1,9 @@
 <div class="container">
-    <h1 class="text-center">Моя Статистика</h1>
+    <h1 class="text-center">Вся статистика</h1>
 
     <table id="result-table" class="table-bordered table-hover text-center">
         <tr class="bg-info">
+            <th>Full Name<br>Login</th>
             <th>Language name</th>
             <th>Test name</th>
             <th>Questions count</th>
@@ -13,6 +14,9 @@
         </tr>
         <?php foreach ($this->data['statistics'] as $statistic) : ?>
         <tr>
+            <td><?= Users::find_by_id($statistic->user_id)->full_name;?><br>
+                (<small><?=Users::find_by_id($statistic->user_id)->login_mail; ?></small>)
+            </td>
             <td><?= Languages::find_by_id($statistic->language_id)->language ?></td>
             <td><?= Tests::find_by_id($statistic->test_id)->test ?></td>
             <td><?= $statistic->question_count ?></td>
@@ -21,7 +25,7 @@
             <td <?= ($statistic->is_passed == 1) ? ' class="success-transp" ' : ' class="danger-transp" '?> >
                 <?= ($statistic->is_passed == 1) ? 'V' : 'X' ?>
             </td>
-            <td><?= date('Y-m-d D H:i:s', strtotime($statistic->pass_date)) ?></td>
+            <td><?= date('Y-m-d H:i:s', strtotime($statistic->pass_date)) ?></td>
         </tr>
         <?php endforeach; ?>
     </table>

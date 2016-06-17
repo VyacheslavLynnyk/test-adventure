@@ -1,5 +1,4 @@
-<div class="container white-transp page-header">
-
+<div class="container white-transp margin--top-good jumbo-paddings">
         <div id="pagination-bar" class="text-right">
             <ul class="pagination">
     <!--            <li><a href="#1" class="active"> Первая </a></li>-->
@@ -167,9 +166,10 @@
     startTimer(lastPage);
 // TIMER END
 
-    window.onbeforeunload = function(){
+    $( window ).on( "unload", function() {
         $('#testForm').submit();
-    }
+    });
+
 
 
 

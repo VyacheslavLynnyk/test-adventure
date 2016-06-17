@@ -44,10 +44,13 @@ class ProfileController extends Controller
 
     }
 
+
+    // ALL PROFILES
     public function admin_index()
     {
-        $this->index();
-        return 'profile/index';
+        Auth::security();
+
+
     }
     
 }

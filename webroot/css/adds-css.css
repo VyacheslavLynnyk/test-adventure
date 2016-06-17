@@ -11,44 +11,46 @@ h1, h2, h3, h4 {
 
 .alert-window {
     position: absolute;
-    left: calc(45% - 150px);
+    left: 25vw;
+    top: 20vh;
     z-index: 1;
-    background: rgba(255, 180, 180, 0.6);
+    background: rgba(255, 180, 180, 0.8);
     color: red;
-
+    font-size: 3em;
     text-shadow: 1px 2px 3px black;
     padding: 30px;
     border: 3px solid red;
     border-radius: 10px;
-    width:300px;
+    box-shadow: 0 0 10px white;
+    width:50vw;
     text-align: center;
     opacity: 0;
-    animation: alert-action 4s 1;
+    animation: alert-action 5s 1;
 }
 
 @-webkit-keyframes alert-action {
     0%   { opacity: 0;}
-    10% { opacity: 0.8;}
-    60% { opacity: 1;}
-    100% { opacity: 0.2;}
+    30%  { opacity: 0.9;}
+    80%  { opacity: 0.9;}
+    100% { opacity: 0;}
 }
 @-moz-keyframes alert-action {
     0%   { opacity: 0;}
-    10% { opacity: 0.8;}
-    60% { opacity: 1;}
-    100% { opacity: 0.5;}
+    30%  { opacity: 0.9;}
+    80%  { opacity: 0.9;}
+    100% { opacity: 0;}
 }
 @-o-keyframes alert-action {
-    0%   { opacity: 0; }
-    10% { opacity: 0.8; }
-    60% { opacity: 1; }
-    100% { opacity: 0.5;}
+    0%   { opacity: 0;}
+    30%  { opacity: 0.9;}
+    80%  { opacity: 0.9;}
+    100% { opacity: 0;}
 }
 @keyframes alert-action {
     0%   { opacity: 0;}
-    10% { opacity: 0.8;}
-    60% { opacity: 1;}
-    100% { opacity: 0.5;}
+    30%  { opacity: 0.9;}
+    80%  { opacity: 0.9;}
+    100% { opacity: 0;}
 }
 
 .blog-masthead {
@@ -87,6 +89,40 @@ h1, h2, h3, h4 {
 }
 #remove-ava {
     display: none;
+}
+
+#login {
+    position: relative;
+    font-size: 1.3em;
+    text-align: center;
+}
+
+#login a {
+    color: #cdddeb;
+    text-shadow: 1px 1px 2px #99aabb;
+}
+
+#login a:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+#login #avatar img:hover{
+    box-shadow: 0 0 5px white;
+}
+
+#login #avatar img{
+    position: absolute;
+    top: 40px;
+    right: calc(50% - 32px);
+    width: 64px;
+    height: 64px;
+    border: 1px solid #eee;
+    box-shadow: 1px 2px 4px black;
+
+}
+.margin--top-good {
+    margin-top: 60px;
 }
 
 #profile--submit {
@@ -166,7 +202,10 @@ h1, h2, h3, h4 {
     font-size: 1.2em;
 }
 
+.jumbo-paddings {
+    padding: 15px;
 
+}
 .go--down {
     margin-top: 20vh;
 }

@@ -6,6 +6,7 @@
     <?php else : ?>
         <div class="go--down jumbotron text-center danger-transp">
         <h1>Вы провалили тест</h1>
+            <p> Количество перездач на сегодня: <?= $this->data['attempts'] ?></p>
     <?php endif;?>
             <h3>Результаты:</h3>
             <p class="panel-heading">Ваша оценка: <?= $this->data['result']['mark'] ?> из

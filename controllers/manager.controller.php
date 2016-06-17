@@ -6,12 +6,7 @@ class ManagerController extends Controller
     {
         parent::__construct($data);
 
-        if (Auth::checkLoginActive() == false) {
-            Router::redirect('auth/index');
-        }
-        if (Auth::getRole() != 'admin') {
-            throw new Exception('Error 404! Page not found.');
-        }
+        Auth::security();
     }
 
     // Get data from DB to left panel

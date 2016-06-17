@@ -99,4 +99,5 @@ class AuthController extends Controller {
 
         Router::redirect('auth/index');
     }
+    
 }
