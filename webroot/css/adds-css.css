@@ -331,3 +331,7 @@ footer > nav a{
 .timer .min {
     font-size: 0.6em;
 }
+
+.thumbnail h4 {
+    text-shadow: none;
+}

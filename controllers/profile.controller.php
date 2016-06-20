@@ -20,8 +20,7 @@ class ProfileController extends Controller
 
             $user->full_name = htmlentities($_POST['full-name']);
             $user->phone = htmlentities($_POST['phone']);
-
-
+            
             $id = $user->id;
             // Get crop and save our avatar image
             $save_path = ROOT . '/webroot/images/avatars/'.md5($id);
@@ -50,7 +49,35 @@ class ProfileController extends Controller
     {
         Auth::security();
 
+        $this->data['users'] = Users::all();
 
     }
-    
+
+    public function admin_save_changes()
+    {
+        if (isset($_POST['changed']) && isset($_POST['user_id']) && is_numeric($_POST['user_id'])) {
+            if ($_POST['user_id'] <= 0) {
+                exit;
+            }
+            $user_id = (int) $_POST['user_id'];
+            $user = Users::find_by_id($user_id);
+
+            $role = strip_tags(trim($_POST['role']));
+            if (isset($role) && $user->role != $role) {
+                $user->role =  $role;
+            }
+
+            $active = (isset($_POST['active'])) ? strip_tags(trim($_POST['active'])) : 0;
+            if ($user->active != $active) {
+                $user->active = $active;
+            }
+            if ($user->save()) {
+                echo 'Сохранено успешно';
+            } else {
+                echo 'Ошибка';
+            }
+
+        }
+        exit;
+    }
 }

@@ -59,7 +59,7 @@ class AuthController extends Controller {
     {
         $role = Auth::getRole($login);
         if ($role == 'admin') {
-            Router::redirect('admin/test/index');
+            Router::redirect('admin/manager');
             exit;
         } elseif ($role == 'user') {
             Router::redirect('test/index');
