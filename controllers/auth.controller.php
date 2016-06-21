@@ -40,9 +40,12 @@ class AuthController extends Controller {
                     Auth::setCookie($posts['login']);
                     $this->applyRole($posts['login']);
                 } else {
-                    $this->create_user_profile($posts['login'], $posts['pass']);
+                    if (isset($_POST['registration'])) {
+                        $this->create_user_profile($posts['login'], $posts['pass']);
+                    }
+                    Router::redirect('auth/index');
+                    exit;
                 }
-
             }
         }
 

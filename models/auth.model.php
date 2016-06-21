@@ -9,10 +9,16 @@ class Auth extends Model
     public static function check($login, $pass)
     {
         self::$user = !isset(self::$user) ? Users::find_by_login_mail($login) : self::$user;
-        if (empty($login) !== false or !isset(self::$user) ) {
+        if (empty($login) !== false or !isset(self::$user)) {
             return false;
         } else {
             $res = (!empty($login) and (self::$user->pass == crypt($pass, 'mySalt')));
+            if ($res == true && self::$user->active != 1) {
+                Session::setFlash('Пользователь с таким именем заблокирован!');
+                $res = false;
+            } elseif ($res == false) {
+                Session::setFlash('Неверный логин или пароль');
+            }
             return $res;
         }
     }
