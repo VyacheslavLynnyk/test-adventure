@@ -55,24 +55,29 @@ class TestController extends Controller
         if (!isset($can_start) || $can_start != 'can_start='.$params[0]) {
             Router::redirect('test/language/'.$params[0]);
         }
-        // Check attempts
-        $user_statistic = Statistics::find_by_user_id_and_test_id(Auth::getUserId(), $params[0], ['order' => 'pass_date desc']);
-        if ($user_statistic) {
-            $attempt = $user_statistic->attempts;
-            $pass_date = $user_statistic->pass_date;
-        } else {
-            $attempt = Config::get('attempt_in_day');
-        }
-        if ($attempt <= 0) {
-            $getDate = Date('Y-m-d');
-            $pass_date = date('Y-m-d', strtotime($pass_date));
-            if ($pass_date >= $getDate) {
-                Session::setFlash('У Вас закончились попытки');
-                Router::redirect('test/denied');
-                exit();
+
+        if (Auth::getRole() != 'admin') {
+            // Check attempts
+            $user_statistic = Statistics::find_by_user_id_and_test_id(Auth::getUserId(), $params[0], ['order' => 'pass_date desc']);
+            if ($user_statistic) {
+                $attempt = $user_statistic->attempts;
+                $pass_date = $user_statistic->pass_date;
+            } else {
+                $attempt = Config::get('attempt_in_day');
             }
+            if ($attempt <= 0) {
+                $getDate = Date('Y-m-d');
+                $pass_date = date('Y-m-d', strtotime($pass_date));
+                if ($pass_date >= $getDate) {
+                    Session::setFlash('У Вас закончились попытки');
+                    Router::redirect('test/denied');
+                    exit();
+                }
+            }
+            Session::saveData('user_attempts', $attempt - 1);
+        } else {
+            Session::saveData('user_attempts', 777);
         }
-        Session::saveData('user_attempts', $attempt - 1);
         // Get Task questions and answers
         $test_data = Tests::getTestData($params[0]);
         $can_start = Session::saveData('start_test', null);

@@ -10,7 +10,10 @@ class Manager extends Model
 
         //remove questions
         $question = Questions::find_by_id($question_id);
-        $question->delete();
+        if ($question->delete()) {
+            return true;
+        }
+        return false;
 
     }
 

@@ -35,10 +35,12 @@
     </div>
 
     <?php if (Session::hasFlash()) : ?>
-        <script>
-            alert( '1' );
-        </script>
+        <script> $(".alert-window").show(); </script>
         <div class="alert-window"> <?php Session::flash() ?> </div>
+        <script> setTimeout( function () {
+                $(".alert-window").hide()
+            }, 5000);
+        </script>
     <?php endif ?>
     <div class="for-static-footer">
         <?=$data['content']?>

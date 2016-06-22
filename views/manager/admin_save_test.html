@@ -1,3 +1,4 @@
+<script src=" <?= REL_URL . '/ckeditor/' ?>ckeditor.js"></script>
 <div class="container">
     <h1 class="text-center">Test Manager</h1>
     <div class="row">
@@ -8,14 +9,18 @@
         </div>
         <div class="col-md-9">
             <form class="jumbotron-blue" action="<?= REL_URL . '/admin/manager/save-test' ?>" method="POST">
-                <div class="form-group">
-                    <label for="InputQuestion">Введите вопрос:</label>
+                <div class="page-header form-group">
+                    <h3 for="InputQuestion">Введите вопрос:</h3>
                     <textarea class="form-control" id="InputQuestion" name="question"></textarea>
+                    <script>
+                        CKEDITOR.replace( 'question' );
+                    </script>
                 </div>
-                <div class="form-group">
-                    <label for="InputFile">Загрузка картинки:</label>
-                    <input type="file" id="InputFile">
-                </div>
+
+<!--                <div class="form-group">-->
+<!--                    <label for="InputFile">Загрузка картинки:</label>-->
+<!--                    <input type="file" id="InputFile">-->
+<!--                </div>-->
                 <h3>Ответы:</h3>
                 <div id="answer-list">
                     <div class="form-group row">
@@ -49,3 +54,6 @@
     </div>
 </div>
 
+<script>
+    $('#InputQuestion').focus();
+</script>

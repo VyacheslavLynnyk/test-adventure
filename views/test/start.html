@@ -28,7 +28,7 @@
                 <div class="page-number-<?= $question_counter?> form-group" style="display: none">
                     <div>
                         <h3>Вопрос:</h3>
-                            <div name="question" class="question"><?=
+                            <div name="question" class="question bg--grey-transp"><?=
                                         $question_data['question'];
                             ?></div>
                     </div>
@@ -97,6 +97,7 @@
     $('.pag-hider').hide();
     paginationStart(lastPage);
 
+
     function checkFinish(lastPage)
     {
         if ((window.location.hash).substr(1) == lastPage) {
@@ -164,6 +165,7 @@
     };
 
     startTimer(lastPage);
+    console.log('test');
 // TIMER END
 
     $( window ).on( "unload", function() {

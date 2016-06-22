@@ -63,7 +63,9 @@
     </div>
 
     <?php if (Session::hasFlash()) : ?>
+        <script> $(".alert-window").show(); </script>
         <div class="alert-window"> <?php Session::flash() ?> </div>
+        <script> setTimeout($(".alert-window").hide(), 4000); </script>
     <?php endif ?>
     <div class="for-static-footer">
         <?=$data['content']?>

@@ -63,6 +63,8 @@ class ManagerController extends Controller
 
                     $this->app_test_menu();
                     Session::saveData('test_id', $testModel->id);
+                    Router::redirect('admin/manager/save-test/' .  $testModel->id);
+                    exit;
                 }
             } else {
                 Session::setFlash('Заполните все поля');
@@ -137,19 +139,22 @@ class ManagerController extends Controller
             }
             $test_id = (int) $params[0];
             if (Manager::remove_test($test_id)) {
-                Session::setFlash('Test removed seccessfully');
+                Session::setFlash('Тест удален успешно');
             } else {
-                Session::setFlash('Test caught an error in the removing process');
+                Session::setFlash('При удалении возникла ошибка');
             }
         } elseif (sizeof($params) >= 2 ) {
             if (isset($params[0]) && is_numeric($params[0]) &&
                 isset($params[1]) && is_numeric($params[1])) {
                 //remove answers
                  if(Manager::remove_question($params[1])) {
-                     Session::setFlash('Question removed seccessfully');
+                     Session::setFlash('Вопрос удален успешно');
                 } else {
-                    Session::setFlash('Question caught an error in the removing process');
+                    Session::setFlash('При удалении возникла ошибка');
                 }
+                $test_id = (int) $params[0];
+                Router::redirect('admin/manager/edit-test/' . $test_id);
+                exit;
             }
         }
         Router::redirect('admin/manager/index');
@@ -163,9 +168,9 @@ class ManagerController extends Controller
 
                 $language_id = (int) $params[0];
                 if (Manager::remove_language($language_id)) {
-                    Session::setFlash('Language removed seccessfully');
+                    Session::setFlash('Язык удален успешно');
                 } else {
-                    Session::setFlash('Language caught an error in the removing process');
+                    Session::setFlash('При удалении возникла ошибка');
                 }
             }
         }
@@ -208,7 +213,7 @@ class ManagerController extends Controller
             $answerModel->question_id = $questionModel->id;
             $answerModel->save();
         }
-        Router::redirect('admin/manager/save-test');
+        Router::redirect('admin/manager/edit-test/' . $test_id);
         exit();
     }
 

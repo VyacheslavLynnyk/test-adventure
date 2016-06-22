@@ -48,11 +48,13 @@
                     </div>
                 </ol>
                 <?php endif ?>
+                <?php if (!isset($data['current_question'])) : ?>
                 <div>
                     <input type="text" hidden name="edit_test" value="save">
                     <a href="<?= REL_URL . '/admin/manager/save-test/' . $data['params'] ?>"
                        type="submit" class="btn btn-success pull-left">Добавить вопрос</a>
                 </div>
+                <?php endif; ?>
 
 <!--EDIT QUESTION and ANSWERS-->
             <?php if (isset($data['current_question']) && $data['current_question'] != null) : ?>
@@ -65,10 +67,10 @@
                         CKEDITOR.replace( 'question' );
                     </script>
                 </div>
-                <div class="form-group">
-                    <label for="InputFile">Загрузка картинки:</label>
-                    <input type="file" id="InputFile">
-                </div>
+<!--                <div class="form-group">-->
+<!--                    <label for="InputFile">Загрузка картинки:</label>-->
+<!--                    <input type="file" id="InputFile">-->
+<!--                </div>-->
                 <h3>Ответы:</h3>
                 <div id="answer-list">
 
@@ -99,4 +101,9 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    $('#InputQuestion').focus();
+</script>
 

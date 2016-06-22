@@ -102,5 +102,37 @@ class AuthController extends Controller {
 
         Router::redirect('auth/index');
     }
+
+    public function change_password()
+    {
+        $access_to_change = 0;
+
+        if (isset($_POST['oldPass'])) {
+            $user = Users::find_by_id(Auth::getUserId());
+            $pass = htmlentities($_POST['oldPass']);
+            $pass = crypt($pass, 'mySolt');
+
+//            echo '$user->pass = ' . $user->pass;
+//            echo ' pass =' .$pass.'  '. $_POST['oldPass'];
+            if ($pass == $user->pass) {
+                $access_to_change = 1;
+            }
+
+            if (isset($_POST['newPass']) && $access_to_change == 1) {
+                $pass = htmlentities($_POST['newPass']);
+                $pass = crypt($pass, 'mySolt');
+                $user->pass =  $pass;
+                if ($user->save() != true) {
+                    $access_to_change = 0;
+                }
+
+            }
+        }
+
+
+        echo $access_to_change;
+
+        exit;
+    }
     
 }
