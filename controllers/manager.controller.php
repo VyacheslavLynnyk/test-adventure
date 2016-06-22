@@ -138,20 +138,12 @@ class ManagerController extends Controller
                 Router::redirect('admin/manager/index');
             }
             $test_id = (int) $params[0];
-            if (Manager::remove_test($test_id)) {
-                Session::setFlash('Тест удален успешно');
-            } else {
-                Session::setFlash('При удалении возникла ошибка');
-            }
+            Manager::remove_test($test_id);
         } elseif (sizeof($params) >= 2 ) {
             if (isset($params[0]) && is_numeric($params[0]) &&
                 isset($params[1]) && is_numeric($params[1])) {
                 //remove answers
-                 if(Manager::remove_question($params[1])) {
-                     Session::setFlash('Вопрос удален успешно');
-                } else {
-                    Session::setFlash('При удалении возникла ошибка');
-                }
+                Manager::remove_question($params[1]);
                 $test_id = (int) $params[0];
                 Router::redirect('admin/manager/edit-test/' . $test_id);
                 exit;

@@ -43,6 +43,7 @@ class AuthController extends Controller {
                     if (isset($_POST['registration'])) {
                         $this->create_user_profile($posts['login'], $posts['pass']);
                     }
+                    Session::setFlash('Не распознанная комбинация логина и пароля');
                     Router::redirect('auth/index');
                     exit;
                 }

@@ -10,10 +10,8 @@ class Manager extends Model
 
         //remove questions
         $question = Questions::find_by_id($question_id);
-        if ($question->delete()) {
-            return true;
-        }
-        return false;
+        $question->delete();
+
 
     }
 
@@ -33,7 +31,7 @@ class Manager extends Model
         $language = Languages::find_by_id($language_id);
         $tests = Tests::find_all_by_language_id($language_id);
         foreach ($tests as $num => $test) {
-                self::remove_test($test->id);
+            self::remove_test($test->id);
         }
         $language->delete();
     }
