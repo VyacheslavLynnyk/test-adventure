@@ -76,7 +76,7 @@ class ManagerController extends Controller
             // Save question and answer
             if ($_POST['question'] != null && $_POST['answer'][0] != null && (Session::getData('test_id') != null)) {
                 $test_id = Session::getData('test_id');
-                $question = htmlspecialchars_decode(trim($_POST['question']));
+                $question = Tests::filter(trim($_POST['question']));
                 $answers_true = (array) $_POST['answer_true'];
                 $answers = (array) $_POST['answer'];
 
@@ -110,7 +110,7 @@ class ManagerController extends Controller
             if (isset($params[1]) && (int) $params[1] !== null) {
                 if (isset($_POST['question']) && $_POST['question'] != null && $_POST['answer'][0] != null) {
                     $test_id = $params[0];
-                    $question = htmlspecialchars_decode(trim($_POST['question']));
+                    $question = Tests::filter(trim($_POST['question']));
                     $question_id = $params[1];
                     $answers_true = (array) $_POST['answer_true'];
                     $answers = (array) $_POST['answer'];

@@ -28,8 +28,9 @@
                 <div class="page-number-<?= $question_counter?> form-group" style="display: none">
                     <div>
                         <h3>Вопрос:</h3>
-                            <div name="question" class="question bg--grey-transp"><?=
-                                        $question_data['question'];
+                            <div name="question" class="question bg--grey-transp">
+                                <?=
+                                Tests::filter($question_data['question']);
                             ?></div>
                     </div>
         <!--        <div class="form-group">-->
@@ -48,7 +49,7 @@
                                     </div>
                                     <div class="inline">
                                         <label for="answer-<?= $answer_num ?>">
-                                            <pre><?= $answer; ?></pre>
+                                            <?= nl2br(htmlentities($answer)); ?>
                                         </label>
                                     </div>
                             </div>

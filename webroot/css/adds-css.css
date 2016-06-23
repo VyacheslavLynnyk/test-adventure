@@ -217,7 +217,7 @@ h1, h2, h3, h4 {
 .jumbotron-blue {
     padding: 50px;
     width: 100%;
-    background: rgba(180,180,255,0.7);
+    background: rgba(190,190,255,0.8);
     border-radius: 4px;
     box-shadow: 15px 20px 30px black;
 }
@@ -278,8 +278,9 @@ h1, h2, h3, h4 {
 
 }
 .question-list div a, .question-list div span {
-    color: #3a2842;
-    text-shadow: 1px 1px 5px grey;
+    font-size: 1.2em;
+    color: black;
+    /*text-shadow: 1px 1px 5px rgba(200,200,255,1);*/
 }
 .question-list a i {
     color: white;
@@ -339,6 +340,7 @@ footer > nav a{
     background: rgba(255, 89, 0, 0.9);
     font-size: 2em;
     color: whitesmoke;
+    z-index: 10;
 }
 
 .timer .min {

@@ -79,4 +79,20 @@ class Tests extends Model
         return $result;
 
     }
+    
+    public static function filter($string)
+    {
+        $filtred_string = str_replace('<?' ,"&lt?", $string);
+        $filtred_string = str_replace('<%' ,"&lt%", $filtred_string);
+        $filtred_string = str_replace('<html' ,"&lthtml", $filtred_string);
+        $filtred_string = str_replace('</html>' ,"&lt/html&gt", $filtred_string);
+        $filtred_string = str_replace('<head' ,"&lthead", $filtred_string);
+        $filtred_string = str_replace('<title' ,"&lttitle", $filtred_string);
+        $filtred_string = str_replace('</title>' ,"&lt/title&gt", $filtred_string);
+        $filtred_string = str_replace('</head>' ,"&lt/head&gt", $filtred_string);
+        $filtred_string = str_replace('%>' ,"%&gt", $filtred_string);
+        $filtred_string = str_replace('<script' ,"&ltscript", $filtred_string);
+        $filtred_string = str_replace('</script>' ,"&lt/script&gt", $filtred_string);
+        return str_replace('?>' ,"?&gt", $filtred_string);
+    }
 }

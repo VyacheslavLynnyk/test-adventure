@@ -25,8 +25,7 @@ class ProfileController extends Controller
             // Get crop and save our avatar image
             $save_path = ROOT . '/webroot/images/avatars/'.md5($id);
             if ($avatar = Images::file_catch('avatar', $save_path)) {
-                $avatar_ext = pathinfo($avatar, PATHINFO_EXTENSION);
-                $save_path .= '.' . $avatar_ext;
+                $save_path .= '.' . 'jpg';
                 $save_url =  str_replace(ROOT.'/webroot', '', $save_path);
                 Images::$expected_height = 400;
                 Images::$expected_width = 400;
